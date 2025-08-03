@@ -3,8 +3,7 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { ProfileTabNavigationProp } from '../../types';
 import { useTheme } from '../../hooks/useTheme';
-import { useAppSelector, useAppDispatch } from '../../hooks/redux';
-import { logout } from '../../store/slices/authSlice';
+import { useAuthStore } from '../../stores';
 import { Button } from '../../components/common/Button';
 import { Card } from '../../components/common/Card';
 import { Screen } from '../../components/common/Screen';
@@ -12,8 +11,7 @@ import { Screen } from '../../components/common/Screen';
 export const ProfileScreen: React.FC = () => {
   const navigation = useNavigation<ProfileTabNavigationProp>();
   const { theme } = useTheme();
-  const { user } = useAppSelector(state => state.auth);
-  const dispatch = useAppDispatch();
+  const { user, logout } = useAuthStore();
 
   const handleEditProfile = () => {
     navigation.navigate('EditProfile');
@@ -29,7 +27,7 @@ export const ProfileScreen: React.FC = () => {
 
   const handleLogout = () => {
     // Show confirmation before logout in a real app
-    dispatch(logout());
+    logout();
   };
 
   const getInitials = (name: string) => {

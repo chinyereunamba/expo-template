@@ -1,8 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useColorScheme } from 'react-native';
-import { useAppSelector, useAppDispatch } from '@/hooks/redux';
-import { setTheme } from '@/store/slices/appSlice';
-import { Theme, ThemeMode, ThemeContextValue } from '@/types';
+import { useAppStore } from '@/stores';
+import { Theme, ThemeContextValue } from '@/types';
 import { themes } from './themes';
 
 // Create theme context
@@ -15,11 +14,8 @@ interface ThemeProviderProps {
 
 // Theme provider component
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
-  const dispatch = useAppDispatch();
+  const { theme: themeMode, setTheme, toggleTheme } = useAppStore();
   const systemColorScheme = useColorScheme();
-
-  // Get theme mode from Redux store
-  const themeMode = useAppSelector(state => state.app.theme);
 
   // Determine current theme based on mode and system preference
   const getCurrentTheme = (): Theme => {
@@ -44,13 +40,8 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     theme: currentTheme,
     themeMode,
     isDark,
-    setThemeMode: (mode: ThemeMode) => {
-      dispatch(setTheme(mode));
-    },
-    toggleTheme: () => {
-      const newMode = themeMode === 'light' ? 'dark' : 'light';
-      dispatch(setTheme(newMode));
-    },
+    setThemeMode: setTheme,
+    toggleTheme,
   };
 
   return (

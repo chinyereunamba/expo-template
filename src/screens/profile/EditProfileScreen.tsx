@@ -1,14 +1,14 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useTheme } from '../../hooks/useTheme';
-import { useAppSelector } from '../../hooks/redux';
+import { useAuthStore } from '../../stores';
 import { Button } from '../../components/common/Button';
 import { Card } from '../../components/common/Card';
 import { Screen } from '../../components/common/Screen';
 
 export const EditProfileScreen: React.FC = () => {
   const { theme } = useTheme();
-  const { user } = useAppSelector(state => state.auth);
+  const { user } = useAuthStore();
 
   const handleSave = () => {
     // TODO: Implement save profile logic in task 10

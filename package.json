@@ -19,15 +19,15 @@
     "type-check": "tsc --noEmit",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "~2.1.0",
+    "zustand": "^4.4.7",
     "@react-native-community/netinfo": "^11.3.1",
     "@react-navigation/bottom-tabs": "^6.5.11",
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/stack": "^6.3.20",
-    "@reduxjs/toolkit": "^2.0.1",
     "expo": "~53.0.20",
     "expo-status-bar": "~2.2.3",
     "react": "19.0.0",
@@ -36,16 +36,13 @@
     "react-native-gesture-handler": "~2.24.0",
     "react-native-safe-area-context": "5.4.0",
     "react-native-screens": "~4.11.1",
-    "react-native-vector-icons": "^10.0.3",
-    "react-redux": "^9.0.4",
-    "redux-persist": "^6.0.0"
+    "react-native-vector-icons": "^10.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
     "@testing-library/react-native": "^13.2.2",
     "@types/jest": "^29.5.12",
     "@types/react": "~19.0.10",
-    "@types/react-redux": "^7.1.33",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
     "babel-plugin-module-resolver": "^5.0.0",

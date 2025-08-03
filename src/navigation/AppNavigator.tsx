@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { useAppSelector } from '../hooks/redux';
+import { useAuthStore, useAppStore } from '../stores';
 import { RootStackParamList } from '../types';
 import { AuthNavigator } from './AuthNavigator';
 import { MainNavigator } from './MainNavigator';
@@ -10,8 +10,8 @@ import { LoadingScreen } from '../screens/LoadingScreen';
 const Stack = createStackNavigator<RootStackParamList>();
 
 export const AppNavigator: React.FC = () => {
-  const { isAuthenticated, isLoading } = useAppSelector(state => state.auth);
-  const { isFirstLaunch } = useAppSelector(state => state.app);
+  const { isAuthenticated, isLoading } = useAuthStore();
+  // const { isFirstLaunch } = useAppStore(); // Uncomment if needed for onboarding
 
   // Show loading screen while checking authentication state
   if (isLoading) {

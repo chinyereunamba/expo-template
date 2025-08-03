@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { apiClient } from './apiClient';
-import { useAuthStore } from '../store/authStore';
+import { useAuthStore } from '../stores';
 import {
   ApiResponse,
   User,

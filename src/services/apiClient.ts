@@ -1,5 +1,5 @@
-import { useAuthStore } from '../store/authStore';
-import { useNetworkStore } from '../store/networkStore';
+import { useAuthStore } from '../stores';
+import { useNetworkStore } from '../stores';
 import { APP_CONFIG } from '../constants';
 import { ApiResponse, BaseQueryError } from '../types/api';
 import { ErrorHandler } from '../utils/errorHandler';

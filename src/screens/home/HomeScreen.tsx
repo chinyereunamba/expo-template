@@ -9,7 +9,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { HomeTabNavigationProp } from '../../types';
 import { useTheme } from '../../hooks/useTheme';
-import { useAppSelector } from '../../hooks/redux';
+import { useAuthStore, useAppStore } from '../../stores';
 import { Button } from '../../components/common/Button';
 import { Card } from '../../components/common/Card';
 import { Screen } from '../../components/common/Screen';
@@ -17,8 +17,8 @@ import { Screen } from '../../components/common/Screen';
 export const HomeScreen: React.FC = () => {
   const navigation = useNavigation<HomeTabNavigationProp>();
   const { theme } = useTheme();
-  const { user, isAuthenticated } = useAppSelector(state => state.auth);
-  const { isOnline } = useAppSelector(state => state.app);
+  const { user } = useAuthStore();
+  const { isOnline } = useAppStore();
   const [refreshing, setRefreshing] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
 

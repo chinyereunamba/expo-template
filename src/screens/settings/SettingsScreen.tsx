@@ -3,8 +3,7 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { SettingsTabNavigationProp } from '../../types';
 import { useTheme } from '../../hooks/useTheme';
-import { useAppSelector, useAppDispatch } from '../../hooks/redux';
-import { toggleTheme } from '../../store/slices/appSlice';
+import { useAppStore } from '../../stores';
 import { Button } from '../../components/common/Button';
 import { Card } from '../../components/common/Card';
 import { Screen } from '../../components/common/Screen';
@@ -12,8 +11,7 @@ import { Screen } from '../../components/common/Screen';
 export const SettingsScreen: React.FC = () => {
   const navigation = useNavigation<SettingsTabNavigationProp>();
   const { theme } = useTheme();
-  const { theme: themeMode, appVersion } = useAppSelector(state => state.app);
-  const dispatch = useAppDispatch();
+  const { theme: themeMode, appVersion, toggleTheme } = useAppStore();
 
   const handleAppSettings = () => {
     navigation.navigate('AppSettings');
@@ -32,7 +30,7 @@ export const SettingsScreen: React.FC = () => {
   };
 
   const handleToggleTheme = () => {
-    dispatch(toggleTheme());
+    toggleTheme();
   };
 
   return (

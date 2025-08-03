@@ -8,8 +8,8 @@ import {
   StyleSheet,
 } from 'react-native';
 import { useLogin, useProfile, useUpdateProfile } from '../../services/authApi';
-import { useAuth, useAuthActions } from '../../store/authStore';
-import { useNetwork } from '../../store/networkStore';
+import { useAuthStore } from '../../stores';
+import { useNetworkStore } from '../../stores';
 
 // Example component demonstrating API integration
 export const ApiExample: React.FC = () => {

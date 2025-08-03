@@ -1,4 +1,4 @@
-// Redux store type definitions
+// Zustand store type definitions
 import { ThemeMode } from './theme';
 import { User } from './user';
 

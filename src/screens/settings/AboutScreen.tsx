@@ -1,13 +1,13 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useTheme } from '../../hooks/useTheme';
-import { useAppSelector } from '../../hooks/redux';
+import { useAppStore } from '../../stores';
 import { Card } from '../../components/common/Card';
 import { Screen } from '../../components/common/Screen';
 
 export const AboutScreen: React.FC = () => {
   const { theme } = useTheme();
-  const { appVersion, buildNumber } = useAppSelector(state => state.app);
+  const { appVersion, buildNumber } = useAppStore();
 
   return (
     <Screen style={styles.container}>
@@ -61,7 +61,7 @@ export const AboutScreen: React.FC = () => {
               <Text
                 style={[styles.feature, { color: theme.colors.textSecondary }]}
               >
-                • Redux Toolkit state management
+                • Zustand state management
               </Text>
               <Text
                 style={[styles.feature, { color: theme.colors.textSecondary }]}
@@ -104,7 +104,7 @@ export const AboutScreen: React.FC = () => {
               <Text
                 style={[styles.tech, { color: theme.colors.textSecondary }]}
               >
-                Redux Toolkit
+                Zustand
               </Text>
             </View>
           </Card>

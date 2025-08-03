@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useNetworkStore } from '../store/networkStore';
+import { useNetworkStore } from '../stores';
 import { NetworkUtils } from '../utils/network';
 import { queryClient } from '../services/queryClient';
 
