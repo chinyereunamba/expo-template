@@ -1,0 +1,70 @@
+{
+  "expo": {
+    "name": "Expo Mobile Skeleton",
+    "slug": "expo-mobile-skeleton",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "scheme": "expo-mobile-skeleton",
+    "platforms": ["ios", "android", "web"],
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.example.expomobileskeleton",
+      "buildNumber": "1",
+      "infoPlist": {
+        "UIBackgroundModes": ["background-fetch"],
+        "NSCameraUsageDescription": "This app uses the camera to take photos for profile pictures.",
+        "NSPhotoLibraryUsageDescription": "This app accesses the photo library to select images for profile pictures."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "edgeToEdgeEnabled": true,
+      "package": "com.example.expomobileskeleton",
+      "versionCode": 1,
+      "permissions": [
+        "INTERNET",
+        "ACCESS_NETWORK_STATE",
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"
+          ]
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "your-project-id-here"
+      }
+    },
+    "updates": {
+      "url": "https://u.expo.dev/your-project-id-here"
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    }
+  }
+}
