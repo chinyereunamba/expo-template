@@ -5,13 +5,13 @@ import { ProfileScreen } from '../profile/ProfileScreen';
 import { SettingsScreen } from '../settings/SettingsScreen';
 import { ThemeProvider } from '../../theme';
 
+import { useAuthStore, useAppStore } from '../../store';
+
 // Mock the store hooks
 jest.mock('../../stores', () => ({
   useAuthStore: jest.fn(),
   useAppStore: jest.fn(),
 }));
-
-import { useAuthStore, useAppStore } from '../../stores';
 
 // Mock navigation
 const mockNavigate = jest.fn();

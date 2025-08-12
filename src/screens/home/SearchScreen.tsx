@@ -81,28 +81,20 @@ export const SearchScreen: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
+  card: {
+    marginBottom: 16,
+  },
   container: {
     flex: 1,
-  },
-  searchContainer: {
-    paddingHorizontal: 24,
-    paddingTop: 16,
-    paddingBottom: 8,
-  },
-  searchInput: {
-    marginBottom: 0,
   },
   content: {
     flex: 1,
     paddingHorizontal: 24,
   },
-  card: {
-    marginBottom: 16,
-  },
-  resultsTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    marginBottom: 12,
+  emptyText: {
+    fontSize: 16,
+    lineHeight: 24,
+    textAlign: 'center',
   },
   emptyTitle: {
     fontSize: 18,
@@ -110,20 +102,28 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     textAlign: 'center',
   },
-  emptyText: {
-    fontSize: 16,
+  placeholder: {
+    fontSize: 14,
+    fontStyle: 'italic',
+    paddingVertical: 20,
     textAlign: 'center',
-    lineHeight: 24,
+  },
+  resultsTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    marginBottom: 12,
+  },
+  searchContainer: {
+    paddingBottom: 8,
+    paddingHorizontal: 24,
+    paddingTop: 16,
+  },
+  searchInput: {
+    marginBottom: 0,
   },
   sectionTitle: {
     fontSize: 18,
     fontWeight: '600',
     marginBottom: 12,
-  },
-  placeholder: {
-    fontSize: 14,
-    fontStyle: 'italic',
-    textAlign: 'center',
-    paddingVertical: 20,
   },
 });

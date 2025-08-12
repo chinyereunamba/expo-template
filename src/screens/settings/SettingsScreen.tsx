@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { SettingsTabNavigationProp } from '../../types';
 import { useTheme } from '../../hooks/useTheme';
-import { useAppStore } from '../../stores';
+import { useAppStore } from '../../store';
 import { Button } from '../../components/common/Button';
 import { Card } from '../../components/common/Card';
 import { Screen } from '../../components/common/Screen';
@@ -143,38 +143,47 @@ export const SettingsScreen: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  header: {
-    paddingHorizontal: 24,
-    paddingTop: 24,
-    paddingBottom: 16,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    marginBottom: 4,
-  },
-  subtitle: {
-    fontSize: 16,
-  },
-  content: {
-    paddingHorizontal: 24,
-    paddingBottom: 24,
+  buttonGroup: {
+    gap: 12,
   },
   card: {
     marginBottom: 16,
+  },
+  container: {
+    flex: 1,
+  },
+  content: {
+    paddingBottom: 24,
+    paddingHorizontal: 24,
+  },
+  header: {
+    paddingBottom: 16,
+    paddingHorizontal: 24,
+    paddingTop: 24,
+  },
+  infoLabel: {
+    fontSize: 16,
+  },
+  infoRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: 8,
+  },
+  infoValue: {
+    fontSize: 16,
+    fontWeight: '500',
+  },
+  menuButton: {
+    marginBottom: 0,
   },
   sectionTitle: {
     fontSize: 18,
     fontWeight: '600',
     marginBottom: 16,
   },
-  settingRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+  settingButton: {
+    marginLeft: 16,
   },
   settingInfo: {
     flex: 1,
@@ -184,30 +193,21 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     marginBottom: 2,
   },
+  settingRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
   settingValue: {
     fontSize: 14,
     textTransform: 'capitalize',
   },
-  settingButton: {
-    marginLeft: 16,
-  },
-  buttonGroup: {
-    gap: 12,
-  },
-  menuButton: {
-    marginBottom: 0,
-  },
-  infoRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 8,
-  },
-  infoLabel: {
+  subtitle: {
     fontSize: 16,
   },
-  infoValue: {
-    fontSize: 16,
-    fontWeight: '500',
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 4,
   },
 });

@@ -15,11 +15,11 @@ interface FormInputProps<T extends FieldValues>
   rules?: object;
   showValidationFeedback?: boolean;
   validationFeedbackType?: 'password' | 'custom';
-  customValidationRules?: Array<{
+  customValidationRules?: {
     label: string;
     isValid: boolean;
     required?: boolean;
-  }>;
+  }[];
   showSuccessIndicator?: boolean;
   enableRealTimeValidation?: boolean;
 }
@@ -115,14 +115,14 @@ const styles = StyleSheet.create({
   container: {
     marginBottom: 16,
   },
+  errorText: {
+    fontSize: 12,
+    marginLeft: 4,
+    marginTop: 4,
+  },
   successIndicator: {
     position: 'absolute',
     right: 12,
     top: 12,
-  },
-  errorText: {
-    fontSize: 12,
-    marginTop: 4,
-    marginLeft: 4,
   },
 });

@@ -23,13 +23,21 @@ export type AuthStackParamList = {
   VerifyEmail: { email: string };
 };
 
-// Main tab navigation
-export type MainTabParamList = {
+// Main tab navigation (base)
+type BaseMainTabParamList = {
   Home: undefined;
   Profile: { userId?: string };
   Settings: undefined;
   Notifications: undefined;
 };
+
+// Debug tab (development only)
+type DebugTabParamList = {
+  Debug: undefined;
+};
+
+// Main tab navigation (conditional debug tab)
+export type MainTabParamList = BaseMainTabParamList & DebugTabParamList;
 
 // Home stack (nested in Home tab)
 export type HomeStackParamList = {

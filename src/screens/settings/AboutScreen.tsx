@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useTheme } from '../../hooks/useTheme';
-import { useAppStore } from '../../stores';
+import { useAppStore } from '../../store';
 import { Card } from '../../components/common/Card';
 import { Screen } from '../../components/common/Screen';
 
@@ -123,60 +123,60 @@ export const AboutScreen: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  content: {
-    padding: 24,
-  },
-  card: {
-    marginBottom: 16,
-  },
-  header: {
-    alignItems: 'center',
-    paddingVertical: 16,
-  },
   appName: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 8,
     textAlign: 'center',
   },
-  version: {
-    fontSize: 16,
+  card: {
+    marginBottom: 16,
   },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    marginBottom: 12,
+  container: {
+    flex: 1,
+  },
+  content: {
+    padding: 24,
+  },
+  copyright: {
+    fontSize: 14,
+    fontStyle: 'italic',
+    textAlign: 'center',
   },
   description: {
+    fontSize: 16,
+    lineHeight: 24,
+  },
+  feature: {
     fontSize: 16,
     lineHeight: 24,
   },
   featuresList: {
     gap: 8,
   },
-  feature: {
-    fontSize: 16,
-    lineHeight: 24,
+  header: {
+    alignItems: 'center',
+    paddingVertical: 16,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    marginBottom: 12,
+  },
+  tech: {
+    backgroundColor: 'rgba(0,0,0,0.05)',
+    borderRadius: 12,
+    fontSize: 14,
+    fontWeight: '500',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
   },
   techList: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 16,
   },
-  tech: {
-    fontSize: 14,
-    fontWeight: '500',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    backgroundColor: 'rgba(0,0,0,0.05)',
-    borderRadius: 12,
-  },
-  copyright: {
-    fontSize: 14,
-    textAlign: 'center',
-    fontStyle: 'italic',
+  version: {
+    fontSize: 16,
   },
 });

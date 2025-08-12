@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, ReactNode } from 'react';
-import { useAuthStore } from '../stores/authStore';
+import { useAuthStore } from '../store/authStore';
 import { tokenManager } from '../services/tokenManager';
 import { useNetInfo } from '@react-native-community/netinfo';
 

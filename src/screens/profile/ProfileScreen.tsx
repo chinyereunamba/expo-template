@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { ProfileTabNavigationProp } from '../../types';
 import { useTheme } from '../../hooks/useTheme';
-import { useAuthStore } from '../../stores';
+import { useAuthStore } from '../../store';
 import { useLogout } from '../../services/authApi';
 import { Button } from '../../components/common/Button';
 import { Card } from '../../components/common/Card';
@@ -162,63 +162,50 @@ export const ProfileScreen: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  header: {
+  avatar: {
     alignItems: 'center',
-    paddingHorizontal: 24,
-    paddingTop: 32,
-    paddingBottom: 24,
+    borderRadius: 40,
+    height: 80,
+    justifyContent: 'center',
+    width: 80,
   },
   avatarContainer: {
     marginBottom: 16,
-  },
-  avatar: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   avatarText: {
     fontSize: 32,
     fontWeight: 'bold',
   },
-  name: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 4,
-  },
-  email: {
-    fontSize: 16,
-  },
-  content: {
-    paddingHorizontal: 24,
-    paddingBottom: 24,
+  buttonGroup: {
+    gap: 12,
   },
   card: {
     marginBottom: 16,
   },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    marginBottom: 16,
+  container: {
+    flex: 1,
   },
-  buttonGroup: {
-    gap: 12,
+  content: {
+    paddingBottom: 24,
+    paddingHorizontal: 24,
   },
-  menuButton: {
-    marginBottom: 0,
+  email: {
+    fontSize: 16,
   },
-  infoRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  header: {
     alignItems: 'center',
-    paddingVertical: 8,
+    paddingBottom: 24,
+    paddingHorizontal: 24,
+    paddingTop: 32,
   },
   infoLabel: {
     fontSize: 16,
+  },
+  infoRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: 8,
   },
   infoValue: {
     fontSize: 16,
@@ -226,5 +213,18 @@ const styles = StyleSheet.create({
   },
   logoutButton: {
     marginBottom: 0,
+  },
+  menuButton: {
+    marginBottom: 0,
+  },
+  name: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 4,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    marginBottom: 16,
   },
 });

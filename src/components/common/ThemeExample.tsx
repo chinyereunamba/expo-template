@@ -23,17 +23,23 @@ export const ThemeExample: React.FC<ThemeExampleProps> = ({
 
   const styles = useStyles(theme =>
     StyleSheet.create({
+      button: {
+        backgroundColor: theme.colors.primary,
+        ...spacing.py('sm'),
+        ...spacing.px('md'),
+        alignItems: 'center',
+        borderRadius: theme.borderRadius.md,
+      },
+      buttonText: {
+        ...typography.text('md'),
+        ...typography.weight('semibold'),
+        color: theme.colors.textInverse,
+      },
       container: {
         ...spacing.p('md'),
         backgroundColor: theme.colors.surface,
         borderRadius: theme.borderRadius.lg,
         ...theme.shadows.md,
-      },
-      title: {
-        ...typography.text('xl'),
-        ...typography.weight('bold'),
-        color: theme.colors.text,
-        ...spacing.mb('sm'),
       },
       description: {
         ...typography.text('md'),
@@ -42,22 +48,15 @@ export const ThemeExample: React.FC<ThemeExampleProps> = ({
           theme.typography.lineHeights.relaxed * theme.typography.fontSizes.md,
         ...spacing.mb('lg'),
       },
-      button: {
-        backgroundColor: theme.colors.primary,
-        ...spacing.py('sm'),
-        ...spacing.px('md'),
-        borderRadius: theme.borderRadius.md,
-        alignItems: 'center',
-      },
-      buttonText: {
-        ...typography.text('md'),
-        ...typography.weight('semibold'),
-        color: theme.colors.textInverse,
+      modeText: {
+        ...typography.text('sm'),
+        ...typography.weight('medium'),
+        color: isDark ? colors.warning : colors.info,
       },
       statusContainer: {
+        alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center',
         ...spacing.mt('md'),
         ...spacing.p('sm'),
         backgroundColor: theme.colors.backgroundSecondary,
@@ -67,10 +66,11 @@ export const ThemeExample: React.FC<ThemeExampleProps> = ({
         ...typography.text('sm'),
         color: theme.colors.textSecondary,
       },
-      modeText: {
-        ...typography.text('sm'),
-        ...typography.weight('medium'),
-        color: isDark ? colors.warning : colors.info,
+      title: {
+        ...typography.text('xl'),
+        ...typography.weight('bold'),
+        color: theme.colors.text,
+        ...spacing.mb('sm'),
       },
     })
   );

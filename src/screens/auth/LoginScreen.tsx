@@ -169,34 +169,16 @@ export const LoginScreen: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: 24,
-    paddingVertical: 48,
-  },
-  header: {
-    alignItems: 'center',
-    marginBottom: 48,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 16,
-    textAlign: 'center',
-  },
-  form: {
-    flex: 1,
-    justifyContent: 'center',
-    paddingBottom: 32,
+  button: {
+    marginBottom: 0,
   },
   buttonContainer: {
     gap: 16,
   },
-  button: {
-    marginBottom: 0,
+  container: {
+    flex: 1,
+    paddingHorizontal: 24,
+    paddingVertical: 48,
   },
   forgotButton: {
     alignSelf: 'center',
@@ -206,17 +188,35 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '500',
   },
+  form: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingBottom: 32,
+  },
+  header: {
+    alignItems: 'center',
+    marginBottom: 48,
+  },
   registerContainer: {
+    alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
     marginTop: 8,
-  },
-  registerText: {
-    fontSize: 14,
   },
   registerLink: {
     fontSize: 14,
     fontWeight: '500',
+  },
+  registerText: {
+    fontSize: 14,
+  },
+  subtitle: {
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 8,
   },
 });

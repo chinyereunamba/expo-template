@@ -290,48 +290,40 @@ export function FormValidationStatus<T extends FieldValues>({
 }
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 12,
-    borderRadius: 8,
+  actionButton: {
+    alignItems: 'center',
+    borderRadius: 4,
     borderWidth: 1,
-    borderColor: 'rgba(0, 0, 0, 0.1)',
-    marginVertical: 8,
-  },
-  mainStatus: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
   },
-  statusItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  actionIcon: {
+    marginRight: 4,
   },
-  statusIcon: {
-    marginRight: 6,
-  },
-  statusText: {
-    fontSize: 14,
-    fontWeight: '600',
-  },
-  statusSubtext: {
+  actionText: {
     fontSize: 12,
     fontWeight: '500',
   },
-  detailedStatus: {
+  actions: {
+    borderTopColor: 'rgba(0, 0, 0, 0.1)',
+    borderTopWidth: 1,
+    flexDirection: 'row',
+    gap: 8,
+    justifyContent: 'center',
     marginTop: 8,
     paddingTop: 8,
-    borderTopWidth: 1,
-    borderTopColor: 'rgba(0, 0, 0, 0.1)',
   },
-  fieldCounts: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 8,
+  container: {
+    borderColor: 'rgba(0, 0, 0, 0.1)',
+    borderRadius: 8,
+    borderWidth: 1,
+    marginVertical: 8,
+    padding: 12,
   },
   countItem: {
-    flexDirection: 'row',
     alignItems: 'center',
+    flexDirection: 'row',
   },
   countLabel: {
     fontSize: 12,
@@ -341,55 +333,11 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '600',
   },
-  submitStatus: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 4,
-  },
-  actions: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    gap: 8,
-    marginTop: 8,
-    paddingTop: 8,
-    borderTopWidth: 1,
+  detailedStatus: {
     borderTopColor: 'rgba(0, 0, 0, 0.1)',
-  },
-  actionButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 4,
-    borderWidth: 1,
-  },
-  actionIcon: {
-    marginRight: 4,
-  },
-  actionText: {
-    fontSize: 12,
-    fontWeight: '500',
-  },
-  errorList: {
+    borderTopWidth: 1,
     marginTop: 8,
     paddingTop: 8,
-    borderTopWidth: 1,
-    borderTopColor: 'rgba(255, 107, 107, 0.2)',
-  },
-  errorListTitle: {
-    fontSize: 12,
-    fontWeight: '600',
-    marginBottom: 6,
-  },
-  errorItem: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    marginBottom: 4,
-  },
-  errorIcon: {
-    marginRight: 6,
-    marginTop: 1,
   },
   errorField: {
     fontSize: 11,
@@ -397,9 +345,61 @@ const styles = StyleSheet.create({
     marginRight: 4,
     minWidth: 60,
   },
+  errorIcon: {
+    marginRight: 6,
+    marginTop: 1,
+  },
+  errorItem: {
+    alignItems: 'flex-start',
+    flexDirection: 'row',
+    marginBottom: 4,
+  },
+  errorList: {
+    borderTopColor: 'rgba(255, 107, 107, 0.2)',
+    borderTopWidth: 1,
+    marginTop: 8,
+    paddingTop: 8,
+  },
+  errorListTitle: {
+    fontSize: 12,
+    fontWeight: '600',
+    marginBottom: 6,
+  },
   errorMessage: {
-    fontSize: 11,
     flex: 1,
+    fontSize: 11,
     lineHeight: 14,
+  },
+  fieldCounts: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 8,
+  },
+  mainStatus: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 8,
+  },
+  statusIcon: {
+    marginRight: 6,
+  },
+  statusItem: {
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  statusSubtext: {
+    fontSize: 12,
+    fontWeight: '500',
+  },
+  statusText: {
+    fontSize: 14,
+    fontWeight: '600',
+  },
+  submitStatus: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingVertical: 4,
   },
 });

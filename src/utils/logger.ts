@@ -1,4 +1,4 @@
-import { logger, configLoggerType, consoleTransport } from 'react-native-logs';
+import { logger, consoleTransport } from 'react-native-logs';
 import { APP_CONFIG } from '@/config/environment';
 
 // Configure logger based on environment
@@ -7,10 +7,10 @@ const defaultConfig = {
   transport: APP_CONFIG.DEBUG ? [consoleTransport] : [],
   transportOptions: {
     colors: {
-      info: 'blueBright',
-      warn: 'yellowBright',
-      error: 'redBright',
-      debug: 'magentaBright',
+      info: 'blueBright' as const,
+      warn: 'yellowBright' as const,
+      error: 'redBright' as const,
+      debug: 'magentaBright' as const,
     },
   },
   async: true,
@@ -148,13 +148,13 @@ export class Logger {
 
   // Log memory usage (React Native specific)
   logMemoryUsage(): void {
-    if (APP_CONFIG.DEBUG && global.performance?.memory) {
-      const memory = global.performance.memory;
-      log.debug('[Memory]', {
-        used: `${Math.round(memory.usedJSHeapSize / 1024 / 1024)}MB`,
-        total: `${Math.round(memory.totalJSHeapSize / 1024 / 1024)}MB`,
-        limit: `${Math.round(memory.jsHeapSizeLimit / 1024 / 1024)}MB`,
-      });
+    if (APP_CONFIG.DEBUG) {
+      // Memory usage logging is not available in React Native
+      // This would be available in web environments
+      log.debug(
+        '[Memory]',
+        'Memory usage monitoring not available in React Native'
+      );
     }
   }
 }

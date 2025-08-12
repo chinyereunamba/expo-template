@@ -149,32 +149,25 @@ const createStyles = (theme: Theme) =>
       padding: theme.spacing.md,
     },
 
-    overlay: {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      backgroundColor: theme.colors.overlay,
-      zIndex: 1000,
-    },
-
-    text: {
-      marginTop: theme.spacing.md,
-      fontSize: theme.typography.fontSizes.md,
-      color: theme.colors.text,
-      textAlign: 'center',
-    },
-
     fullScreenOverlay: {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      zIndex: 9999,
       alignItems: 'center',
+      bottom: 0,
       justifyContent: 'center',
+      left: 0,
+      position: 'absolute',
+      right: 0,
+      top: 0,
+      zIndex: 9999,
+    },
+
+    overlay: {
+      backgroundColor: theme.colors.overlay,
+      bottom: 0,
+      left: 0,
+      position: 'absolute',
+      right: 0,
+      top: 0,
+      zIndex: 1000,
     },
 
     overlayContent: {
@@ -182,12 +175,19 @@ const createStyles = (theme: Theme) =>
       borderRadius: theme.borderRadius.lg,
       padding: theme.spacing.xl,
       ...theme.shadows.lg,
-      minWidth: 120,
       alignItems: 'center',
+      minWidth: 120,
     },
 
     skeleton: {
       backgroundColor: theme.colors.disabled,
       opacity: 0.7,
+    },
+
+    text: {
+      color: theme.colors.text,
+      fontSize: theme.typography.fontSizes.md,
+      marginTop: theme.spacing.md,
+      textAlign: 'center',
     },
   });

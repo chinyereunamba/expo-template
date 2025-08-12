@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Animated } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useNetworkStore } from '../../stores';
+import { useNetworkStore } from '../../store';
 import { useTheme } from '../../hooks/useTheme';
 
 interface NetworkStatusIndicatorProps {
@@ -56,12 +56,12 @@ export const NetworkStatusIndicator: React.FC<NetworkStatusIndicatorProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 8,
-    paddingHorizontal: 16,
+    flexDirection: 'row',
     gap: 8,
+    justifyContent: 'center',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
   },
   text: {
     fontSize: 14,

@@ -146,9 +146,9 @@ const createStyles = (theme: Theme) =>
     },
 
     label: {
+      color: theme.colors.text,
       fontSize: theme.typography.fontSizes.sm,
       fontWeight: theme.typography.fontWeights.medium,
-      color: theme.colors.text,
       marginBottom: theme.spacing.xs,
     },
     requiredLabel: {
@@ -165,10 +165,10 @@ const createStyles = (theme: Theme) =>
     },
 
     inputContainer: {
-      flexDirection: 'row',
       alignItems: 'center',
-      borderWidth: 1,
       borderRadius: theme.borderRadius.md,
+      borderWidth: 1,
+      flexDirection: 'row',
     },
 
     // Variants
@@ -212,8 +212,8 @@ const createStyles = (theme: Theme) =>
     },
 
     input: {
-      flex: 1,
       color: theme.colors.text,
+      flex: 1,
       fontSize: theme.typography.fontSizes.md,
       fontWeight: theme.typography.fontWeights.normal,
     },
@@ -231,19 +231,19 @@ const createStyles = (theme: Theme) =>
     },
 
     leftIconContainer: {
-      marginRight: theme.spacing.sm,
       alignItems: 'center',
       justifyContent: 'center',
+      marginRight: theme.spacing.sm,
     },
     rightIconContainer: {
-      marginLeft: theme.spacing.sm,
       alignItems: 'center',
       justifyContent: 'center',
+      marginLeft: theme.spacing.sm,
     },
 
     helperText: {
-      fontSize: theme.typography.fontSizes.xs,
       color: theme.colors.textSecondary,
+      fontSize: theme.typography.fontSizes.xs,
       marginTop: theme.spacing.xs,
     },
     errorText: {

@@ -48,6 +48,12 @@ export const WelcomeScreen: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
+  button: {
+    marginBottom: 0,
+  },
+  buttonContainer: {
+    gap: 16,
+  },
   container: {
     flex: 1,
     justifyContent: 'space-between',
@@ -55,25 +61,19 @@ const styles = StyleSheet.create({
     paddingVertical: 48,
   },
   content: {
+    alignItems: 'center',
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+  },
+  subtitle: {
+    fontSize: 16,
+    lineHeight: 24,
+    textAlign: 'center',
   },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    textAlign: 'center',
     marginBottom: 16,
-  },
-  subtitle: {
-    fontSize: 16,
     textAlign: 'center',
-    lineHeight: 24,
-  },
-  buttonContainer: {
-    gap: 16,
-  },
-  button: {
-    marginBottom: 0,
   },
 });

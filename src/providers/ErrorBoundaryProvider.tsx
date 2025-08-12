@@ -280,83 +280,17 @@ export const ComponentErrorBoundary: React.FC<{ children: ReactNode }> = ({
 );
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  scrollContent: {
-    flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-    minHeight: '100%',
-  },
-  content: {
-    alignItems: 'center',
-    maxWidth: 400,
-    width: '100%',
-  },
-  icon: {
-    marginBottom: 32,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    marginBottom: 16,
-    textAlign: 'center',
-  },
-  globalTitle: {
-    fontSize: 32,
-    marginBottom: 20,
-  },
-  message: {
-    fontSize: 16,
-    textAlign: 'center',
-    lineHeight: 24,
-    marginBottom: 32,
-  },
-  errorDetails: {
-    padding: 16,
-    borderRadius: 8,
-    marginBottom: 32,
-    width: '100%',
-    maxHeight: 300,
-  },
-  errorTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 12,
-  },
-  errorText: {
-    fontSize: 14,
-    marginBottom: 12,
-    lineHeight: 18,
-  },
-  stackContainer: {
-    maxHeight: 120,
-    marginBottom: 12,
-  },
-  stackTrace: {
-    fontSize: 12,
-    fontFamily: 'monospace',
-    lineHeight: 16,
-  },
-  componentStack: {
-    marginTop: 12,
-    paddingTop: 12,
-    borderTopWidth: 1,
-    borderTopColor: '#e0e0e0',
-  },
   actions: {
-    width: '100%',
     alignItems: 'center',
+    width: '100%',
   },
   button: {
-    flexDirection: 'row',
     alignItems: 'center',
+    borderRadius: 8,
+    flexDirection: 'row',
+    minWidth: 200,
     paddingHorizontal: 32,
     paddingVertical: 16,
-    borderRadius: 8,
-    minWidth: 200,
   },
   buttonIcon: {
     marginRight: 8,
@@ -365,6 +299,72 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: '600',
+    textAlign: 'center',
+  },
+  componentStack: {
+    borderTopColor: '#e0e0e0',
+    borderTopWidth: 1,
+    marginTop: 12,
+    paddingTop: 12,
+  },
+  container: {
+    flex: 1,
+  },
+  content: {
+    alignItems: 'center',
+    maxWidth: 400,
+    width: '100%',
+  },
+  errorDetails: {
+    borderRadius: 8,
+    marginBottom: 32,
+    maxHeight: 300,
+    padding: 16,
+    width: '100%',
+  },
+  errorText: {
+    fontSize: 14,
+    lineHeight: 18,
+    marginBottom: 12,
+  },
+  errorTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 12,
+  },
+  globalTitle: {
+    fontSize: 32,
+    marginBottom: 20,
+  },
+  icon: {
+    marginBottom: 32,
+  },
+  message: {
+    fontSize: 16,
+    lineHeight: 24,
+    marginBottom: 32,
+    textAlign: 'center',
+  },
+  scrollContent: {
+    alignItems: 'center',
+    flexGrow: 1,
+    justifyContent: 'center',
+    minHeight: '100%',
+    padding: 20,
+  },
+  stackContainer: {
+    marginBottom: 12,
+    maxHeight: 120,
+  },
+  stackTrace: {
+    fontFamily: 'monospace',
+    fontSize: 12,
+    lineHeight: 16,
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 16,
     textAlign: 'center',
   },
 });

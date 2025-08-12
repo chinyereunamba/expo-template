@@ -4,13 +4,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import { HomeScreen } from '../home/HomeScreen';
 import { ThemeProvider } from '../../theme';
 
+import { useAuthStore, useAppStore } from '../../store';
+
 // Mock the store hooks
 jest.mock('../../stores', () => ({
   useAuthStore: jest.fn(),
   useAppStore: jest.fn(),
 }));
-
-import { useAuthStore, useAppStore } from '../../stores';
 
 const mockAuthStore = {
   user: null,

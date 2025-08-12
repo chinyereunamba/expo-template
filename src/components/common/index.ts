@@ -10,3 +10,8 @@ export * from './ErrorBoundary';
 export * from './NetworkStatusIndicator';
 export * from './NetworkStatus';
 export * from './ApiErrorHandler';
+export * from './DevMenu';
+
+// Performance optimized components
+export * from './OptimizedImage';
+export * from './VirtualizedList';

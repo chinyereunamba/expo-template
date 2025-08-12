@@ -149,17 +149,36 @@ export const ApiErrorHandler: React.FC<ApiErrorHandlerProps> = ({
 };
 
 const styles = StyleSheet.create({
+  actions: {
+    flexDirection: 'row',
+    gap: 8,
+    justifyContent: 'flex-end',
+  },
+  button: {
+    borderRadius: 6,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+  },
+  buttonText: {
+    fontSize: 14,
+    fontWeight: '500',
+  },
   container: {
-    padding: 16,
+    borderColor: 'rgba(255, 107, 107, 0.2)',
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: 'rgba(255, 107, 107, 0.2)',
     marginVertical: 8,
+    padding: 16,
   },
   content: {
-    flexDirection: 'row',
     alignItems: 'flex-start',
+    flexDirection: 'row',
     marginBottom: 12,
+  },
+  dismissButton: {
+    backgroundColor: 'transparent',
+    borderColor: 'rgba(0, 0, 0, 0.1)',
+    borderWidth: 1,
   },
   icon: {
     marginRight: 12,
@@ -170,26 +189,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 20,
   },
-  actions: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    gap: 8,
-  },
-  button: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 6,
-  },
   retryButton: {
     // backgroundColor set dynamically
-  },
-  dismissButton: {
-    backgroundColor: 'transparent',
-    borderWidth: 1,
-    borderColor: 'rgba(0, 0, 0, 0.1)',
-  },
-  buttonText: {
-    fontSize: 14,
-    fontWeight: '500',
   },
 });

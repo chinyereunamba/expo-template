@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Animated } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useNetworkStore } from '../../stores';
+import { useNetworkStore } from '../../store';
 import { useTheme } from '../../hooks/useTheme';
 
 interface NetworkStatusProps {
@@ -123,8 +123,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   content: {
-    flexDirection: 'row',
     alignItems: 'center',
+    flexDirection: 'row',
     justifyContent: 'center',
   },
   icon: {

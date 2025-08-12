@@ -70,32 +70,32 @@ export const AppSettingsScreen: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
+  card: {
+    marginBottom: 16,
+  },
   container: {
     flex: 1,
   },
   content: {
     padding: 24,
   },
-  card: {
-    marginBottom: 16,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 16,
+  placeholder: {
+    fontSize: 14,
+    fontStyle: 'italic',
+    paddingVertical: 20,
+    textAlign: 'center',
   },
   sectionTitle: {
     fontSize: 18,
     fontWeight: '600',
     marginBottom: 12,
   },
-  placeholder: {
-    fontSize: 14,
-    fontStyle: 'italic',
-    textAlign: 'center',
-    paddingVertical: 20,
+  subtitle: {
+    fontSize: 16,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 8,
   },
 });

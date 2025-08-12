@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider } from '../contexts/AuthContext';
 import { ErrorBoundaryProvider } from './ErrorBoundaryProvider';
+import { ThemeProvider } from '../theme/ThemeProvider';
 
 // Create a client
 const queryClient = new QueryClient({
@@ -27,19 +28,33 @@ interface AppProvidersProps {
   children: ReactNode;
 }
 
+/**
+ * App Providers Component
+ *
+ * Sets up all the global providers for the application in the correct order:
+ * 1. ErrorBoundaryProvider - Global error handling
+ * 2. QueryClientProvider - React Query for API state management
+ * 3. ThemeProvider - Theme and styling system
+ * 4. AuthProvider - Authentication state and context
+ *
+ * The order is important as inner providers may depend on outer ones.
+ */
 export const AppProviders: React.FC<AppProvidersProps> = ({ children }) => {
   const handleGlobalError = (error: Error, errorInfo: React.ErrorInfo) => {
     // Log to crash reporting service
     console.error('Global error caught:', error, errorInfo);
 
-    // You can add crash reporting here
+    // TODO: Integrate with crash reporting service
     // Example: Crashlytics.recordError(error);
+    // Example: Sentry.captureException(error, { extra: errorInfo });
   };
 
   return (
     <ErrorBoundaryProvider onError={handleGlobalError}>
       <QueryClientProvider client={queryClient}>
-        <AuthProvider>{children}</AuthProvider>
+        <ThemeProvider>
+          <AuthProvider>{children}</AuthProvider>
+        </ThemeProvider>
       </QueryClientProvider>
     </ErrorBoundaryProvider>
   );

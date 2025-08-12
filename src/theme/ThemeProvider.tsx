@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useColorScheme } from 'react-native';
-import { useAppStore } from '@/stores';
+import { useAppStore } from '@/store';
 import { Theme, ThemeContextValue } from '@/types';
 import { themes } from './themes';
 

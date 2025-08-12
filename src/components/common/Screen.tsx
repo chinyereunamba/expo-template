@@ -174,54 +174,54 @@ const createStyles = (theme: Theme) =>
       flex: 1,
     },
 
-    scrollView: {
+    content: {
       flex: 1,
+    },
+
+    header: {
+      alignItems: 'center',
+      borderBottomColor: theme.colors.border,
+      borderBottomWidth: 1,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginBottom: theme.spacing.md,
+      paddingVertical: theme.spacing.md,
+    },
+
+    headerCenter: {
+      alignItems: 'center',
+      flex: 2,
+    },
+
+    headerLeft: {
+      alignItems: 'flex-start',
+      flex: 1,
+    },
+
+    headerRight: {
+      alignItems: 'flex-end',
+      flex: 1,
+    },
+
+    headerSubtitle: {
+      color: theme.colors.textSecondary,
+      fontSize: theme.typography.fontSizes.sm,
+      marginTop: theme.spacing.xs,
+      textAlign: 'center',
+    },
+
+    headerTitle: {
+      color: theme.colors.text,
+      fontSize: theme.typography.fontSizes.xl,
+      fontWeight: theme.typography.fontWeights.bold,
+      textAlign: 'center',
     },
 
     scrollContent: {
       flexGrow: 1,
     },
 
-    content: {
+    scrollView: {
       flex: 1,
-    },
-
-    header: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      paddingVertical: theme.spacing.md,
-      borderBottomWidth: 1,
-      borderBottomColor: theme.colors.border,
-      marginBottom: theme.spacing.md,
-    },
-
-    headerLeft: {
-      flex: 1,
-      alignItems: 'flex-start',
-    },
-
-    headerCenter: {
-      flex: 2,
-      alignItems: 'center',
-    },
-
-    headerRight: {
-      flex: 1,
-      alignItems: 'flex-end',
-    },
-
-    headerTitle: {
-      fontSize: theme.typography.fontSizes.xl,
-      fontWeight: theme.typography.fontWeights.bold,
-      color: theme.colors.text,
-      textAlign: 'center',
-    },
-
-    headerSubtitle: {
-      fontSize: theme.typography.fontSizes.sm,
-      color: theme.colors.textSecondary,
-      textAlign: 'center',
-      marginTop: theme.spacing.xs,
     },
   });

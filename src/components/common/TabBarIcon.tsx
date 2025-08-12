@@ -43,9 +43,9 @@ export const TabBarIcon: React.FC<TabBarIconProps> = ({
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
+    height: 24,
     justifyContent: 'center',
     width: 24,
-    height: 24,
   },
   focused: {
     transform: [{ scale: 1.1 }],

@@ -1,9 +1,10 @@
-import { useAuthStore } from '../stores';
-import { useNetworkStore } from '../stores';
+import { useAuthStore } from '../store';
+import { useNetworkStore } from '../store';
 import { APP_CONFIG } from '../constants';
 import { ApiResponse, BaseQueryError } from '../types/api';
 import { ErrorHandler } from '../utils/errorHandler';
 import { tokenManager } from './tokenManager';
+import { monitoredFetch } from '../utils/networkMonitor';
 
 // API Client configuration
 const API_CONFIG = {
@@ -102,8 +103,8 @@ class ApiClient {
     const timeoutId = setTimeout(() => controller.abort(), timeout);
 
     try {
-      const response = await fetch(fullUrl, {
-        method: method,
+      const response = await monitoredFetch(fullUrl, {
+        method,
         headers: requestHeaders,
         body: body ? JSON.stringify(body) : null,
         signal: controller.signal,

@@ -102,13 +102,13 @@ export const Button: React.FC<ButtonProps> = ({
 const createStyles = (theme: Theme) =>
   StyleSheet.create({
     button: {
-      flexDirection: 'row',
       alignItems: 'center',
-      justifyContent: 'center',
+      borderColor: 'transparent',
       borderRadius: theme.borderRadius.md,
       borderWidth: 1,
-      borderColor: 'transparent',
+      flexDirection: 'row',
       gap: theme.spacing.sm,
+      justifyContent: 'center',
     },
 
     // Variants
@@ -135,19 +135,19 @@ const createStyles = (theme: Theme) =>
 
     // Sizes
     small: {
+      minHeight: 36,
       paddingHorizontal: theme.spacing.md,
       paddingVertical: theme.spacing.sm,
-      minHeight: 36,
     },
     medium: {
+      minHeight: 44,
       paddingHorizontal: theme.spacing.lg,
       paddingVertical: theme.spacing.md,
-      minHeight: 44,
     },
     large: {
+      minHeight: 52,
       paddingHorizontal: theme.spacing.xl,
       paddingVertical: theme.spacing.lg,
-      minHeight: 52,
     },
 
     // States

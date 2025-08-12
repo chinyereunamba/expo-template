@@ -1,4 +1,4 @@
-import { useAuthStore } from '../stores/authStore';
+import { useAuthStore } from '../store/authStore';
 import { APP_CONFIG } from '../constants';
 import { ApiResponse } from '../types';
 

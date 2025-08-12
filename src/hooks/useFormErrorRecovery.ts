@@ -3,7 +3,7 @@ import { Alert } from 'react-native';
 import { UseFormReturn, FieldValues, Path } from 'react-hook-form';
 import { ErrorHandler } from '../utils/errorHandler';
 import { NetworkUtils } from '../utils/network';
-import { useNetworkStore } from '../stores';
+import { useNetworkStore } from '../store';
 
 export interface FormErrorRecoveryOptions<T extends FieldValues> {
   form: UseFormReturn<T>;

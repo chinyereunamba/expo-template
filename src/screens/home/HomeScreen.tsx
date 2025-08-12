@@ -9,7 +9,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { HomeTabNavigationProp } from '../../types';
 import { useTheme } from '../../hooks/useTheme';
-import { useAuthStore, useAppStore } from '../../stores';
+import { useAuthStore, useAppStore } from '../../store';
 import { Button } from '../../components/common/Button';
 import { Card } from '../../components/common/Card';
 import { Screen } from '../../components/common/Screen';
@@ -158,25 +158,12 @@ export const HomeScreen: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  actionButton: {
     flex: 1,
   },
-  header: {
-    paddingHorizontal: 24,
-    paddingTop: 24,
-    paddingBottom: 16,
-  },
-  greeting: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 4,
-  },
-  subtitle: {
-    fontSize: 16,
-  },
-  content: {
-    paddingHorizontal: 24,
-    paddingBottom: 24,
+  actionButtons: {
+    flexDirection: 'row',
+    gap: 12,
   },
   card: {
     marginBottom: 16,
@@ -186,17 +173,30 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     marginBottom: 12,
   },
-  actionButtons: {
-    flexDirection: 'row',
-    gap: 12,
-  },
-  actionButton: {
+  container: {
     flex: 1,
+  },
+  content: {
+    paddingBottom: 24,
+    paddingHorizontal: 24,
+  },
+  greeting: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 4,
+  },
+  header: {
+    paddingBottom: 16,
+    paddingHorizontal: 24,
+    paddingTop: 24,
   },
   placeholder: {
     fontSize: 14,
     fontStyle: 'italic',
-    textAlign: 'center',
     paddingVertical: 20,
+    textAlign: 'center',
+  },
+  subtitle: {
+    fontSize: 16,
   },
 });

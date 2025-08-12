@@ -8,3 +8,7 @@ export * from './useEnhancedForm';
 export * from './useEnhancedFormValidation';
 export * from './useNetworkMonitor';
 export * from './useFormErrorRecovery';
+export * from './usePerformanceMonitor';
+
+// Performance optimization hooks
+export * from './usePerformanceOptimization';

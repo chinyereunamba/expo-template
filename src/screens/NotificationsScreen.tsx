@@ -71,38 +71,38 @@ export const NotificationsScreen: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
+  card: {
+    marginBottom: 16,
+  },
   container: {
     flex: 1,
   },
+  content: {
+    paddingBottom: 24,
+    paddingHorizontal: 24,
+  },
   header: {
+    paddingBottom: 16,
     paddingHorizontal: 24,
     paddingTop: 24,
-    paddingBottom: 16,
   },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    marginBottom: 4,
-  },
-  subtitle: {
-    fontSize: 16,
-  },
-  content: {
-    paddingHorizontal: 24,
-    paddingBottom: 24,
-  },
-  card: {
-    marginBottom: 16,
+  placeholder: {
+    fontSize: 14,
+    fontStyle: 'italic',
+    paddingVertical: 20,
+    textAlign: 'center',
   },
   sectionTitle: {
     fontSize: 18,
     fontWeight: '600',
     marginBottom: 12,
   },
-  placeholder: {
-    fontSize: 14,
-    fontStyle: 'italic',
-    textAlign: 'center',
-    paddingVertical: 20,
+  subtitle: {
+    fontSize: 16,
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 4,
   },
 });

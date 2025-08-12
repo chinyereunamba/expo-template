@@ -98,45 +98,45 @@ export const ChangePasswordScreen: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
+  button: {
+    marginBottom: 0,
+  },
+  buttonContainer: {
+    marginTop: 16,
+  },
+  card: {
+    marginBottom: 16,
+  },
   container: {
     flex: 1,
   },
   content: {
     padding: 24,
   },
-  card: {
-    marginBottom: 16,
+  placeholder: {
+    fontSize: 14,
+    fontStyle: 'italic',
+    paddingVertical: 20,
+    textAlign: 'center',
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 8,
+  requirement: {
+    fontSize: 14,
+    lineHeight: 20,
   },
-  subtitle: {
-    fontSize: 16,
+  requirementsList: {
+    gap: 4,
   },
   sectionTitle: {
     fontSize: 18,
     fontWeight: '600',
     marginBottom: 12,
   },
-  requirementsList: {
-    gap: 4,
+  subtitle: {
+    fontSize: 16,
   },
-  requirement: {
-    fontSize: 14,
-    lineHeight: 20,
-  },
-  placeholder: {
-    fontSize: 14,
-    fontStyle: 'italic',
-    textAlign: 'center',
-    paddingVertical: 20,
-  },
-  buttonContainer: {
-    marginTop: 16,
-  },
-  button: {
-    marginBottom: 0,
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 8,
   },
 });

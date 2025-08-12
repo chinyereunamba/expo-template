@@ -1,7 +1,17 @@
 module.exports = function (api) {
-  api.cache(true);
+  const isTest = api.env('test');
+  api.cache.using(() => isTest);
+  
   return {
-    presets: ['babel-preset-expo'],
+    presets: [
+      [
+        'babel-preset-expo',
+        {
+          // Disable reanimated plugin in test environment
+          reanimated: !isTest,
+        },
+      ],
+    ],
     plugins: [
       [
         'module-resolver',

@@ -120,55 +120,55 @@ export const HelpScreen: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  content: {
-    padding: 24,
-  },
-  card: {
-    marginBottom: 16,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 16,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    marginBottom: 16,
-  },
-  faqItem: {
-    marginBottom: 16,
-  },
-  question: {
-    fontSize: 16,
-    fontWeight: '600',
-    marginBottom: 4,
-  },
   answer: {
     fontSize: 14,
     lineHeight: 20,
+  },
+  button: {
+    marginBottom: 0,
+  },
+  buttonGroup: {
+    gap: 12,
+  },
+  card: {
+    marginBottom: 16,
   },
   contactText: {
     fontSize: 16,
     lineHeight: 24,
     marginBottom: 16,
   },
-  buttonGroup: {
-    gap: 12,
+  container: {
+    flex: 1,
   },
-  button: {
-    marginBottom: 0,
+  content: {
+    padding: 24,
+  },
+  faqItem: {
+    marginBottom: 16,
   },
   placeholder: {
     fontSize: 14,
     fontStyle: 'italic',
-    textAlign: 'center',
     paddingVertical: 20,
+    textAlign: 'center',
+  },
+  question: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 4,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    marginBottom: 16,
+  },
+  subtitle: {
+    fontSize: 16,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 8,
   },
 });

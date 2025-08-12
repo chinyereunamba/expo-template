@@ -7,6 +7,7 @@ import {
   SetNotificationPayload,
   SetAppSettingsPayload,
 } from '../types';
+import { devtools, stateInspector } from '../utils/zustandDevtools';
 
 interface AppStore extends AppState {
   // Actions
@@ -55,55 +56,58 @@ const initialState: AppState = {
 
 export const useAppStore = create<AppStore>()(
   persist(
-    set => ({
-      ...initialState,
+    devtools(
+      set => ({
+        ...initialState,
 
-      setTheme: (theme: ThemeMode) =>
-        set({
-          theme,
-        }),
+        setTheme: (theme: ThemeMode) =>
+          set({
+            theme,
+          }),
 
-      toggleTheme: () =>
-        set(state => {
-          // Cycle through: light -> dark -> system -> light
-          let newTheme: ThemeMode;
-          if (state.theme === 'light') {
-            newTheme = 'dark';
-          } else if (state.theme === 'dark') {
-            newTheme = 'system';
-          } else {
-            newTheme = 'light';
-          }
-          return { theme: newTheme };
-        }),
+        toggleTheme: () =>
+          set(state => {
+            // Cycle through: light -> dark -> system -> light
+            let newTheme: ThemeMode;
+            if (state.theme === 'light') {
+              newTheme = 'dark';
+            } else if (state.theme === 'dark') {
+              newTheme = 'system';
+            } else {
+              newTheme = 'light';
+            }
+            return { theme: newTheme };
+          }),
 
-      setFirstLaunch: (isFirstLaunch: boolean) =>
-        set({
-          isFirstLaunch,
-        }),
+        setFirstLaunch: (isFirstLaunch: boolean) =>
+          set({
+            isFirstLaunch,
+          }),
 
-      setNotifications: (payload: SetNotificationPayload) =>
-        set(state => ({
-          notifications: { ...state.notifications, ...payload },
-        })),
+        setNotifications: (payload: SetNotificationPayload) =>
+          set(state => ({
+            notifications: { ...state.notifications, ...payload },
+          })),
 
-      setOnlineStatus: (isOnline: boolean) =>
-        set({
-          isOnline,
-        }),
+        setOnlineStatus: (isOnline: boolean) =>
+          set({
+            isOnline,
+          }),
 
-      setAppSettings: (payload: SetAppSettingsPayload) =>
-        set(state => ({
-          settings: { ...state.settings, ...payload },
-        })),
+        setAppSettings: (payload: SetAppSettingsPayload) =>
+          set(state => ({
+            settings: { ...state.settings, ...payload },
+          })),
 
-      setAppVersion: (version: { version: string; buildNumber: string }) =>
-        set({
-          appVersion: version.version,
-          buildNumber: version.buildNumber,
-          lastUpdated: new Date().toISOString(),
-        }),
-    }),
+        setAppVersion: (version: { version: string; buildNumber: string }) =>
+          set({
+            appVersion: version.version,
+            buildNumber: version.buildNumber,
+            lastUpdated: new Date().toISOString(),
+          }),
+      }),
+      'AppStore'
+    ),
     {
       name: 'app-storage',
       storage: createJSONStorage(() => AsyncStorage),
@@ -116,3 +120,5 @@ export const useAppStore = create<AppStore>()(
     }
   )
 );
+// Register store with state inspector
+stateInspector.registerStore('AppStore', useAppStore);

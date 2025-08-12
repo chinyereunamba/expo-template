@@ -63,21 +63,21 @@ export const FormFieldError: React.FC<FormFieldErrorProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    marginTop: 4,
+    borderColor: 'rgba(255, 107, 107, 0.2)',
     borderRadius: 6,
     borderWidth: 1,
-    borderColor: 'rgba(255, 107, 107, 0.2)',
+    flexDirection: 'row',
+    marginTop: 4,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+  },
+  errorText: {
+    flex: 1,
+    fontSize: 12,
+    lineHeight: 16,
   },
   icon: {
     marginRight: 8,
-  },
-  errorText: {
-    fontSize: 12,
-    flex: 1,
-    lineHeight: 16,
   },
 });

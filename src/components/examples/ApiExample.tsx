@@ -8,8 +8,8 @@ import {
   StyleSheet,
 } from 'react-native';
 import { useLogin, useProfile, useUpdateProfile } from '../../services/authApi';
-import { useAuthStore } from '../../stores';
-import { useNetworkStore } from '../../stores';
+import { useAuthStore } from '../../store';
+import { useNetworkStore } from '../../store';
 
 // Example component demonstrating API integration
 export const ApiExample: React.FC = () => {
@@ -192,80 +192,16 @@ export const ApiExample: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: '#f5f5f5',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 20,
-  },
-  networkStatus: {
-    backgroundColor: '#e8f4f8',
-    padding: 10,
-    borderRadius: 8,
-    marginBottom: 20,
-  },
-  networkText: {
-    textAlign: 'center',
-    fontWeight: '600',
-  },
-  errorContainer: {
-    backgroundColor: '#ffebee',
-    padding: 10,
-    borderRadius: 8,
-    marginBottom: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  errorText: {
-    color: '#c62828',
-    flex: 1,
-  },
-  clearErrorButton: {
-    backgroundColor: '#c62828',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 4,
-  },
-  clearErrorText: {
-    color: 'white',
-    fontSize: 12,
-  },
-  form: {
+  apiStatus: {
     backgroundColor: 'white',
-    padding: 20,
-    borderRadius: 12,
-    marginBottom: 20,
-  },
-  profile: {
-    backgroundColor: 'white',
-    padding: 20,
-    borderRadius: 12,
-    marginBottom: 20,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    marginBottom: 15,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ddd',
     borderRadius: 8,
-    padding: 12,
-    marginBottom: 15,
-    fontSize: 16,
+    padding: 15,
   },
   button: {
-    backgroundColor: '#007AFF',
-    padding: 15,
-    borderRadius: 8,
     alignItems: 'center',
+    backgroundColor: '#007AFF',
+    borderRadius: 8,
+    padding: 15,
   },
   buttonDisabled: {
     backgroundColor: '#ccc',
@@ -275,39 +211,103 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
   },
+  clearErrorButton: {
+    backgroundColor: '#c62828',
+    borderRadius: 4,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+  },
+  clearErrorText: {
+    color: 'white',
+    fontSize: 12,
+  },
+  container: {
+    backgroundColor: '#f5f5f5',
+    flex: 1,
+    padding: 20,
+  },
+  errorContainer: {
+    alignItems: 'center',
+    backgroundColor: '#ffebee',
+    borderRadius: 8,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 20,
+    padding: 10,
+  },
+  errorText: {
+    color: '#c62828',
+    flex: 1,
+  },
+  form: {
+    backgroundColor: 'white',
+    borderRadius: 12,
+    marginBottom: 20,
+    padding: 20,
+  },
+  input: {
+    borderColor: '#ddd',
+    borderRadius: 8,
+    borderWidth: 1,
+    fontSize: 16,
+    marginBottom: 15,
+    padding: 12,
+  },
   loadingText: {
-    textAlign: 'center',
     color: '#666',
     fontStyle: 'italic',
+    textAlign: 'center',
   },
-  userInfo: {
-    backgroundColor: '#f8f9fa',
-    padding: 15,
+  networkStatus: {
+    backgroundColor: '#e8f4f8',
     borderRadius: 8,
     marginBottom: 20,
+    padding: 10,
   },
-  userText: {
-    fontSize: 16,
-    marginBottom: 5,
+  networkText: {
+    fontWeight: '600',
+    textAlign: 'center',
   },
-  updateForm: {
-    borderTopWidth: 1,
-    borderTopColor: '#eee',
-    paddingTop: 20,
-  },
-  apiStatus: {
+  profile: {
     backgroundColor: 'white',
-    padding: 15,
-    borderRadius: 8,
+    borderRadius: 12,
+    marginBottom: 20,
+    padding: 20,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    marginBottom: 15,
+  },
+  statusText: {
+    color: '#666',
+    fontSize: 14,
+    marginBottom: 5,
   },
   statusTitle: {
     fontSize: 16,
     fontWeight: '600',
     marginBottom: 10,
   },
-  statusText: {
-    fontSize: 14,
-    color: '#666',
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  updateForm: {
+    borderTopColor: '#eee',
+    borderTopWidth: 1,
+    paddingTop: 20,
+  },
+  userInfo: {
+    backgroundColor: '#f8f9fa',
+    borderRadius: 8,
+    marginBottom: 20,
+    padding: 15,
+  },
+  userText: {
+    fontSize: 16,
     marginBottom: 5,
   },
 });

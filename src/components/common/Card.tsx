@@ -133,8 +133,8 @@ const createStyles = (theme: Theme) =>
       borderWidth: 0,
     },
     outlined: {
-      borderWidth: 1,
       borderColor: theme.colors.border,
+      borderWidth: 1,
     },
     filled: {
       backgroundColor: theme.colors.backgroundSecondary,
@@ -154,10 +154,10 @@ const createStyles = (theme: Theme) =>
       flex: 1,
     },
     footer: {
-      marginTop: theme.spacing.md,
-      flexDirection: 'row',
-      justifyContent: 'flex-end',
       alignItems: 'center',
+      flexDirection: 'row',
       gap: theme.spacing.sm,
+      justifyContent: 'flex-end',
+      marginTop: theme.spacing.md,
     },
   });

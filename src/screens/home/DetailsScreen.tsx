@@ -61,37 +61,37 @@ export const DetailsScreen: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
+  card: {
+    marginBottom: 16,
+  },
   container: {
     flex: 1,
   },
   content: {
     padding: 24,
   },
-  card: {
-    marginBottom: 16,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 8,
+  description: {
+    fontSize: 16,
+    lineHeight: 24,
   },
   id: {
-    fontSize: 14,
     fontFamily: 'monospace',
+    fontSize: 14,
+  },
+  placeholder: {
+    fontSize: 14,
+    fontStyle: 'italic',
+    paddingVertical: 20,
+    textAlign: 'center',
   },
   sectionTitle: {
     fontSize: 18,
     fontWeight: '600',
     marginBottom: 12,
   },
-  description: {
-    fontSize: 16,
-    lineHeight: 24,
-  },
-  placeholder: {
-    fontSize: 14,
-    fontStyle: 'italic',
-    textAlign: 'center',
-    paddingVertical: 20,
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 8,
   },
 });

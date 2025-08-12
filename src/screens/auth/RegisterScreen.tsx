@@ -226,45 +226,45 @@ export const RegisterScreen: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: 24,
-    paddingVertical: 48,
-  },
-  header: {
-    alignItems: 'center',
-    marginBottom: 32,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 16,
-    textAlign: 'center',
-  },
-  form: {
-    marginBottom: 32,
+  button: {
+    marginBottom: 0,
   },
   buttonContainer: {
     gap: 16,
     marginBottom: 32,
   },
-  button: {
-    marginBottom: 0,
+  container: {
+    flex: 1,
+    paddingHorizontal: 24,
+    paddingVertical: 48,
+  },
+  form: {
+    marginBottom: 32,
+  },
+  header: {
+    alignItems: 'center',
+    marginBottom: 32,
   },
   loginContainer: {
+    alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
     marginTop: 8,
-  },
-  loginText: {
-    fontSize: 14,
   },
   loginLink: {
     fontSize: 14,
     fontWeight: '500',
+  },
+  loginText: {
+    fontSize: 14,
+  },
+  subtitle: {
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 8,
   },
 });

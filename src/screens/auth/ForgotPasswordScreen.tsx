@@ -59,38 +59,38 @@ export const ForgotPasswordScreen: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
+  button: {
+    marginBottom: 0,
+  },
+  buttonContainer: {
+    gap: 16,
+  },
   container: {
     flex: 1,
     paddingHorizontal: 24,
     paddingVertical: 48,
   },
+  form: {
+    flex: 1,
+    justifyContent: 'center',
+  },
   header: {
     alignItems: 'center',
     marginBottom: 48,
+  },
+  placeholder: {
+    fontSize: 14,
+    fontStyle: 'italic',
+    textAlign: 'center',
+  },
+  subtitle: {
+    fontSize: 16,
+    lineHeight: 24,
+    textAlign: 'center',
   },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 16,
-    textAlign: 'center',
-    lineHeight: 24,
-  },
-  form: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  placeholder: {
-    fontSize: 14,
-    textAlign: 'center',
-    fontStyle: 'italic',
-  },
-  buttonContainer: {
-    gap: 16,
-  },
-  button: {
-    marginBottom: 0,
   },
 });

@@ -208,29 +208,8 @@ export const ComponentShowcase: React.FC = () => {
 
 const createStyles = (theme: Theme) =>
   StyleSheet.create({
-    title: {
-      fontSize: theme.typography.fontSizes.xxxl,
-      fontWeight: theme.typography.fontWeights.bold,
-      color: theme.colors.text,
-      textAlign: 'center',
-      marginBottom: theme.spacing.sm,
-    },
-
-    subtitle: {
-      fontSize: theme.typography.fontSizes.md,
-      color: theme.colors.textSecondary,
-      textAlign: 'center',
-      marginBottom: theme.spacing.xl,
-    },
-
-    section: {
-      marginBottom: theme.spacing.lg,
-    },
-
-    sectionTitle: {
-      fontSize: theme.typography.fontSizes.xl,
-      fontWeight: theme.typography.fontWeights.semibold,
-      color: theme.colors.text,
+    button: {
+      flex: 1,
     },
 
     buttonRow: {
@@ -239,33 +218,49 @@ const createStyles = (theme: Theme) =>
       marginBottom: theme.spacing.md,
     },
 
-    button: {
-      flex: 1,
+    cardFooterText: {
+      color: theme.colors.primary,
+      fontSize: theme.typography.fontSizes.sm,
+      fontWeight: theme.typography.fontWeights.medium,
     },
 
-    fullWidthButton: {
-      marginTop: theme.spacing.sm,
+    cardText: {
+      color: theme.colors.text,
+      fontSize: theme.typography.fontSizes.md,
+    },
+
+    cardTitle: {
+      color: theme.colors.text,
+      fontSize: theme.typography.fontSizes.lg,
+      fontWeight: theme.typography.fontWeights.semibold,
     },
 
     exampleCard: {
       marginBottom: theme.spacing.md,
     },
 
-    cardText: {
+    fullWidthButton: {
+      marginTop: theme.spacing.sm,
+    },
+
+    infoText: {
+      color: theme.colors.textSecondary,
       fontSize: theme.typography.fontSizes.md,
-      color: theme.colors.text,
+      lineHeight:
+        theme.typography.lineHeights.relaxed * theme.typography.fontSizes.md,
+      marginBottom: theme.spacing.sm,
     },
 
-    cardTitle: {
-      fontSize: theme.typography.fontSizes.lg,
-      fontWeight: theme.typography.fontWeights.semibold,
-      color: theme.colors.text,
+    loadingExample: {
+      alignItems: 'center',
+      flexDirection: 'row',
+      gap: theme.spacing.sm,
+      marginBottom: theme.spacing.md,
     },
 
-    cardFooterText: {
-      fontSize: theme.typography.fontSizes.sm,
-      color: theme.colors.primary,
-      fontWeight: theme.typography.fontWeights.medium,
+    loadingLabel: {
+      color: theme.colors.text,
+      fontSize: theme.typography.fontSizes.md,
     },
 
     loadingRow: {
@@ -274,23 +269,28 @@ const createStyles = (theme: Theme) =>
       marginBottom: theme.spacing.md,
     },
 
-    loadingExample: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: theme.spacing.sm,
-      marginBottom: theme.spacing.md,
+    section: {
+      marginBottom: theme.spacing.lg,
     },
 
-    loadingLabel: {
-      fontSize: theme.typography.fontSizes.md,
+    sectionTitle: {
       color: theme.colors.text,
+      fontSize: theme.typography.fontSizes.xl,
+      fontWeight: theme.typography.fontWeights.semibold,
     },
 
-    infoText: {
-      fontSize: theme.typography.fontSizes.md,
+    subtitle: {
       color: theme.colors.textSecondary,
-      lineHeight:
-        theme.typography.lineHeights.relaxed * theme.typography.fontSizes.md,
+      fontSize: theme.typography.fontSizes.md,
+      marginBottom: theme.spacing.xl,
+      textAlign: 'center',
+    },
+
+    title: {
+      color: theme.colors.text,
+      fontSize: theme.typography.fontSizes.xxxl,
+      fontWeight: theme.typography.fontWeights.bold,
       marginBottom: theme.spacing.sm,
+      textAlign: 'center',
     },
   });

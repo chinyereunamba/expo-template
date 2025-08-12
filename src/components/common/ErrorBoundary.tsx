@@ -250,99 +250,17 @@ const DefaultErrorFallback: React.FC<DefaultErrorFallbackProps> = ({
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f8f9fa',
-  },
-  scrollContent: {
-    flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-    minHeight: '100%',
-  },
-  content: {
-    alignItems: 'center',
-    maxWidth: 400,
-    width: '100%',
-  },
-  icon: {
-    marginBottom: 24,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 16,
-    textAlign: 'center',
-  },
-  globalTitle: {
-    fontSize: 28,
-    marginBottom: 20,
-  },
-  message: {
-    fontSize: 16,
-    color: '#666',
-    textAlign: 'center',
-    lineHeight: 24,
-    marginBottom: 16,
-  },
-  retryInfo: {
-    fontSize: 14,
-    color: '#999',
-    marginBottom: 24,
-    textAlign: 'center',
-  },
-  errorDetails: {
-    backgroundColor: '#f5f5f5',
-    padding: 16,
-    borderRadius: 8,
-    marginBottom: 24,
-    width: '100%',
-    maxHeight: 300,
-  },
-  errorTitle: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 8,
-  },
-  errorText: {
-    fontSize: 12,
-    color: '#666',
-    marginBottom: 12,
-    lineHeight: 16,
-  },
-  stackContainer: {
-    maxHeight: 120,
-    marginBottom: 12,
-  },
-  stackTrace: {
-    fontSize: 10,
-    color: '#999',
-    fontFamily: 'monospace',
-    lineHeight: 14,
-  },
-  componentStack: {
-    marginTop: 12,
-    paddingTop: 12,
-    borderTopWidth: 1,
-    borderTopColor: '#e0e0e0',
-  },
-  buttonContainer: {
-    width: '100%',
-    alignItems: 'center',
-  },
   button: {
-    flexDirection: 'row',
     alignItems: 'center',
+    borderRadius: 8,
+    flexDirection: 'row',
+    minWidth: 120,
     paddingHorizontal: 32,
     paddingVertical: 12,
-    borderRadius: 8,
-    minWidth: 120,
   },
-  primaryButton: {
-    backgroundColor: '#007AFF',
+  buttonContainer: {
+    alignItems: 'center',
+    width: '100%',
   },
   buttonIcon: {
     marginRight: 8,
@@ -351,14 +269,96 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
   },
+  componentStack: {
+    borderTopColor: '#e0e0e0',
+    borderTopWidth: 1,
+    marginTop: 12,
+    paddingTop: 12,
+  },
+  container: {
+    backgroundColor: '#f8f9fa',
+    flex: 1,
+  },
+  content: {
+    alignItems: 'center',
+    maxWidth: 400,
+    width: '100%',
+  },
+  errorDetails: {
+    backgroundColor: '#f5f5f5',
+    borderRadius: 8,
+    marginBottom: 24,
+    maxHeight: 300,
+    padding: 16,
+    width: '100%',
+  },
+  errorText: {
+    color: '#666',
+    fontSize: 12,
+    lineHeight: 16,
+    marginBottom: 12,
+  },
+  errorTitle: {
+    color: '#333',
+    fontSize: 14,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  globalTitle: {
+    fontSize: 28,
+    marginBottom: 20,
+  },
+  icon: {
+    marginBottom: 24,
+  },
+  maxRetriesText: {
+    color: '#FF6B6B',
+    fontSize: 14,
+    lineHeight: 20,
+    paddingHorizontal: 16,
+    textAlign: 'center',
+  },
+  message: {
+    color: '#666',
+    fontSize: 16,
+    lineHeight: 24,
+    marginBottom: 16,
+    textAlign: 'center',
+  },
+  primaryButton: {
+    backgroundColor: '#007AFF',
+  },
   primaryButtonText: {
     color: '#FFFFFF',
   },
-  maxRetriesText: {
+  retryInfo: {
+    color: '#999',
     fontSize: 14,
-    color: '#FF6B6B',
+    marginBottom: 24,
     textAlign: 'center',
-    lineHeight: 20,
-    paddingHorizontal: 16,
+  },
+  scrollContent: {
+    alignItems: 'center',
+    flexGrow: 1,
+    justifyContent: 'center',
+    minHeight: '100%',
+    padding: 20,
+  },
+  stackContainer: {
+    marginBottom: 12,
+    maxHeight: 120,
+  },
+  stackTrace: {
+    color: '#999',
+    fontFamily: 'monospace',
+    fontSize: 10,
+    lineHeight: 14,
+  },
+  title: {
+    color: '#333',
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 16,
+    textAlign: 'center',
   },
 });

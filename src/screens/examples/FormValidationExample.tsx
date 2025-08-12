@@ -557,64 +557,97 @@ export const FormValidationExample: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
+  attemptsText: {
+    fontSize: 12,
+    fontStyle: 'italic',
+    marginTop: 8,
+  },
+  button: {
+    marginBottom: 0,
+  },
+  buttonContainer: {
+    gap: 12,
+    marginBottom: 32,
+  },
   container: {
     flex: 1,
     paddingHorizontal: 16,
     paddingVertical: 24,
   },
-  header: {
-    alignItems: 'center',
-    marginBottom: 24,
+  debugButton: {
+    borderColor: 'rgba(0, 0, 0, 0.1)',
+    borderRadius: 6,
+    borderWidth: 1,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 8,
-    textAlign: 'center',
-  },
-  subtitle: {
-    fontSize: 14,
-    textAlign: 'center',
-    lineHeight: 20,
-  },
-  debugSection: {
-    padding: 16,
-    borderRadius: 8,
-    marginBottom: 24,
-  },
-  debugTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    marginBottom: 12,
+  debugButtonText: {
+    fontSize: 12,
+    fontWeight: '500',
   },
   debugControls: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 8,
   },
-  debugButton: {
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    borderRadius: 6,
-    borderWidth: 1,
-    borderColor: 'rgba(0, 0, 0, 0.1)',
+  debugSection: {
+    borderRadius: 8,
+    marginBottom: 24,
+    padding: 16,
   },
-  debugButtonText: {
-    fontSize: 12,
-    fontWeight: '500',
+  debugTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 12,
   },
   form: {
     marginBottom: 24,
   },
-  statusSection: {
-    padding: 16,
-    borderRadius: 8,
+  halfButton: {
+    flex: 1,
+  },
+  header: {
+    alignItems: 'center',
     marginBottom: 24,
   },
-  statusTitle: {
+  recoveryButton: {
+    alignSelf: 'flex-start',
+    borderRadius: 6,
+    marginTop: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+  },
+  recoveryButtonText: {
+    fontSize: 14,
+    fontWeight: '500',
+  },
+  recoveryIcon: {
+    marginRight: 8,
+  },
+  recoveryItem: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginBottom: 8,
+  },
+  recoverySection: {
+    borderColor: 'rgba(0, 0, 0, 0.1)',
+    borderRadius: 8,
+    borderWidth: 1,
+    marginBottom: 16,
+    padding: 16,
+  },
+  recoveryText: {
+    flex: 1,
+    fontSize: 14,
+  },
+  recoveryTitle: {
     fontSize: 16,
     fontWeight: '600',
     marginBottom: 12,
+  },
+  secondaryButtons: {
+    flexDirection: 'row',
+    gap: 12,
   },
   statusGrid: {
     flexDirection: 'row',
@@ -622,70 +655,37 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   statusItem: {
-    flexDirection: 'row',
     alignItems: 'center',
+    flexDirection: 'row',
     minWidth: '45%',
   },
   statusLabel: {
     fontSize: 14,
     marginRight: 8,
   },
-  statusValue: {
-    fontSize: 14,
-    fontWeight: '600',
-  },
-  attemptsText: {
-    fontSize: 12,
-    marginTop: 8,
-    fontStyle: 'italic',
-  },
-  buttonContainer: {
-    gap: 12,
-    marginBottom: 32,
-  },
-  button: {
-    marginBottom: 0,
-  },
-  secondaryButtons: {
-    flexDirection: 'row',
-    gap: 12,
-  },
-  halfButton: {
-    flex: 1,
-  },
-  recoverySection: {
-    padding: 16,
+  statusSection: {
     borderRadius: 8,
-    marginBottom: 16,
-    borderWidth: 1,
-    borderColor: 'rgba(0, 0, 0, 0.1)',
+    marginBottom: 24,
+    padding: 16,
   },
-  recoveryTitle: {
+  statusTitle: {
     fontSize: 16,
     fontWeight: '600',
     marginBottom: 12,
   },
-  recoveryItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  statusValue: {
+    fontSize: 14,
+    fontWeight: '600',
+  },
+  subtitle: {
+    fontSize: 14,
+    lineHeight: 20,
+    textAlign: 'center',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
     marginBottom: 8,
-  },
-  recoveryIcon: {
-    marginRight: 8,
-  },
-  recoveryText: {
-    fontSize: 14,
-    flex: 1,
-  },
-  recoveryButton: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 6,
-    alignSelf: 'flex-start',
-    marginTop: 8,
-  },
-  recoveryButtonText: {
-    fontSize: 14,
-    fontWeight: '500',
+    textAlign: 'center',
   },
 });

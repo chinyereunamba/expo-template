@@ -93,27 +93,27 @@ export const getPasswordValidationRules = (
 
 const styles = StyleSheet.create({
   container: {
-    padding: 12,
-    borderRadius: 8,
-    marginTop: 8,
-    borderWidth: 1,
     borderColor: 'rgba(0, 0, 0, 0.1)',
+    borderRadius: 8,
+    borderWidth: 1,
+    marginTop: 8,
+    padding: 12,
+  },
+  icon: {
+    marginRight: 8,
+  },
+  ruleContainer: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginBottom: 4,
+  },
+  ruleText: {
+    flex: 1,
+    fontSize: 12,
   },
   title: {
     fontSize: 14,
     fontWeight: '600',
     marginBottom: 8,
-  },
-  ruleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 4,
-  },
-  icon: {
-    marginRight: 8,
-  },
-  ruleText: {
-    fontSize: 12,
-    flex: 1,
   },
 });

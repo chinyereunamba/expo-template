@@ -64,43 +64,43 @@ export const ResetPasswordScreen: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
+  button: {
+    marginBottom: 0,
+  },
+  buttonContainer: {
+    gap: 16,
+  },
   container: {
     flex: 1,
     paddingHorizontal: 24,
     paddingVertical: 48,
   },
+  form: {
+    flex: 1,
+    justifyContent: 'center',
+  },
   header: {
     alignItems: 'center',
     marginBottom: 48,
+  },
+  placeholder: {
+    fontSize: 14,
+    fontStyle: 'italic',
+    marginBottom: 16,
+    textAlign: 'center',
+  },
+  subtitle: {
+    fontSize: 16,
+    textAlign: 'center',
   },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 8,
   },
-  subtitle: {
-    fontSize: 16,
-    textAlign: 'center',
-  },
-  form: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  placeholder: {
-    fontSize: 14,
-    textAlign: 'center',
-    fontStyle: 'italic',
-    marginBottom: 16,
-  },
   tokenInfo: {
+    fontFamily: 'monospace',
     fontSize: 12,
     textAlign: 'center',
-    fontFamily: 'monospace',
-  },
-  buttonContainer: {
-    gap: 16,
-  },
-  button: {
-    marginBottom: 0,
   },
 });

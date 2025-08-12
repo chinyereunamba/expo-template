@@ -68,51 +68,51 @@ export const VerifyEmailScreen: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
+  button: {
+    marginBottom: 0,
+  },
+  buttonContainer: {
+    gap: 16,
+  },
   container: {
     flex: 1,
     paddingHorizontal: 24,
     paddingVertical: 48,
   },
-  header: {
+  content: {
     alignItems: 'center',
-    marginBottom: 48,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    marginBottom: 16,
-  },
-  subtitle: {
-    fontSize: 16,
-    textAlign: 'center',
-    marginBottom: 8,
+    flex: 1,
+    justifyContent: 'center',
   },
   email: {
     fontSize: 16,
     fontWeight: '600',
     textAlign: 'center',
   },
-  content: {
-    flex: 1,
-    justifyContent: 'center',
+  header: {
     alignItems: 'center',
+    marginBottom: 48,
   },
   instructions: {
     fontSize: 16,
-    textAlign: 'center',
     lineHeight: 24,
     marginBottom: 24,
+    textAlign: 'center',
   },
   note: {
     fontSize: 14,
-    textAlign: 'center',
-    lineHeight: 20,
     fontStyle: 'italic',
+    lineHeight: 20,
+    textAlign: 'center',
   },
-  buttonContainer: {
-    gap: 16,
+  subtitle: {
+    fontSize: 16,
+    marginBottom: 8,
+    textAlign: 'center',
   },
-  button: {
-    marginBottom: 0,
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 16,
   },
 });

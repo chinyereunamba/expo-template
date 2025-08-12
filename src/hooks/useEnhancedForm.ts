@@ -11,7 +11,7 @@ import { ObjectSchema } from 'yup';
 import { Alert } from 'react-native';
 import { ErrorHandler } from '../utils/errorHandler';
 import { NetworkUtils } from '../utils/network';
-import { useNetworkStore } from '../stores';
+import { useNetworkStore } from '../store';
 import { useNetworkMonitor } from './useNetworkMonitor';
 
 export interface UseEnhancedFormOptions<T extends FieldValues>

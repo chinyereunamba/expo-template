@@ -3,14 +3,33 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MainTabParamList } from '../types';
 import { useTheme } from '../hooks/useTheme';
 
-// Import tab navigators
-import { HomeNavigator } from './HomeNavigator';
-import { ProfileNavigator } from './ProfileNavigator';
-import { SettingsNavigator } from './SettingsNavigator';
-import { NotificationsScreen } from '../screens/NotificationsScreen';
+// Import tab navigators with lazy loading
+import { createLazyScreen } from '../utils/lazyLoading';
+
+const HomeNavigator = createLazyScreen(() =>
+  import('./HomeNavigator').then(m => ({ default: m.HomeNavigator }))
+);
+const ProfileNavigator = createLazyScreen(() =>
+  import('./ProfileNavigator').then(m => ({ default: m.ProfileNavigator }))
+);
+const SettingsNavigator = createLazyScreen(() =>
+  import('./SettingsNavigator').then(m => ({ default: m.SettingsNavigator }))
+);
+const NotificationsScreen = createLazyScreen(() =>
+  import('../screens/NotificationsScreen').then(m => ({
+    default: m.NotificationsScreen,
+  }))
+);
 
 // Import icons (using a simple icon component for now)
 import { TabBarIcon } from '../components/common/TabBarIcon';
+
+// Import debug screen (development only)
+import { APP_CONFIG } from '../config/environment';
+let DebugScreen: React.ComponentType | null = null;
+if (APP_CONFIG.DEBUG) {
+  DebugScreen = require('../screens/debug').DebugScreen;
+}
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
@@ -74,12 +93,23 @@ export const MainNavigator: React.FC = () => {
           tabBarLabel: 'Settings',
         }}
       />
+      {APP_CONFIG.DEBUG && DebugScreen && (
+        <Tab.Screen
+          name='Debug'
+          component={DebugScreen}
+          options={{
+            tabBarLabel: 'Debug',
+          }}
+        />
+      )}
     </Tab.Navigator>
   );
 };
 
 // Helper function to get tab bar icon names
-const getTabBarIconName = (routeName: keyof MainTabParamList): string => {
+const getTabBarIconName = (
+  routeName: keyof MainTabParamList | 'Debug'
+): string => {
   switch (routeName) {
     case 'Home':
       return 'home';
@@ -89,6 +119,8 @@ const getTabBarIconName = (routeName: keyof MainTabParamList): string => {
       return 'notifications';
     case 'Settings':
       return 'settings';
+    case 'Debug':
+      return 'bug-report';
     default:
       return 'home';
   }

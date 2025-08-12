@@ -1,5 +1,5 @@
 import { QueryClient, QueryCache, MutationCache } from '@tanstack/react-query';
-import { useNetworkStore } from '../stores';
+import { useNetworkStore } from '../store';
 import { ErrorHandler } from '../utils/errorHandler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createAsyncStoragePersister } from '@tanstack/query-async-storage-persister';
