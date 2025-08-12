@@ -69,18 +69,97 @@ src/
 
 ## Build & Deploy
 
-- `npm run build:android` - Build for Android
-- `npm run build:ios` - Build for iOS
-- `npm run build:all` - Build for all platforms
+### Environment Setup
 
-## Environment Variables
-
-Copy `.env.example` to `.env` and update with your values:
+Set up your environment configuration:
 
 ```bash
-EXPO_PUBLIC_API_URL=https://your-api.com
-EXPO_PUBLIC_APP_ENV=development
+# Interactive setup
+npm run setup:env
+
+# Or manually copy and edit
+cp .env.example .env
 ```
+
+### Build Commands
+
+```bash
+# Development builds
+npm run build:dev
+
+# Staging builds
+npm run build:staging
+
+# Production builds
+npm run build:prod
+
+# Platform-specific builds
+npm run build:android
+npm run build:ios
+npm run build:all
+```
+
+### Configuration Validation
+
+```bash
+# Validate environment configuration
+npm run config:validate development
+npm run config:validate staging
+npm run config:validate production
+
+# List all environments
+npm run config:list
+```
+
+### Over-the-Air Updates
+
+```bash
+# Publish updates to different channels
+npm run update:dev
+npm run update:staging
+npm run update:prod
+```
+
+### App Store Submission
+
+```bash
+# Submit to app stores
+npm run submit:staging  # Internal testing
+npm run submit:prod     # Production release
+```
+
+## Environment Configuration
+
+The app supports multiple environments with different configurations:
+
+- **Development**: Local development with debug tools
+- **Staging**: Pre-production testing environment
+- **Production**: Live app store releases
+
+### Required Environment Variables
+
+```bash
+# API Configuration
+EXPO_PUBLIC_API_URL=https://api.example.com
+EXPO_PUBLIC_API_VERSION=v1
+
+# App Configuration
+EXPO_PUBLIC_APP_ENV=development
+EXPO_PUBLIC_DEBUG_MODE=true
+
+# EAS Project Configuration
+EXPO_PUBLIC_EAS_PROJECT_ID=your-project-id-here
+```
+
+### Optional Variables
+
+```bash
+# Analytics and Monitoring
+EXPO_PUBLIC_ANALYTICS_ID=your-analytics-id
+EXPO_PUBLIC_SENTRY_DSN=your-sentry-dsn
+```
+
+For detailed configuration information, see [Configuration Guide](docs/CONFIGURATION.md) and [Build & Deployment Guide](docs/BUILD_AND_DEPLOYMENT.md).
 
 ## Code Quality
 

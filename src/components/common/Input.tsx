@@ -14,7 +14,7 @@ import { Theme } from '@/types';
 
 export interface InputProps extends Omit<TextInputProps, 'style'> {
   label?: string;
-  error?: string;
+  error?: string | null | undefined;
   helperText?: string;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
@@ -22,6 +22,7 @@ export interface InputProps extends Omit<TextInputProps, 'style'> {
   variant?: 'outlined' | 'filled';
   required?: boolean;
   disabled?: boolean;
+  success?: boolean;
   containerStyle?: ViewStyle;
   inputStyle?: TextStyle;
   labelStyle?: TextStyle;
@@ -40,6 +41,7 @@ export const Input = forwardRef<TextInput, InputProps>(
       variant = 'outlined',
       required = false,
       disabled = false,
+      success = false,
       containerStyle,
       inputStyle,
       labelStyle,
@@ -63,6 +65,7 @@ export const Input = forwardRef<TextInput, InputProps>(
       styles[size],
       isFocused && styles.focused,
       hasError && styles.error,
+      success && !hasError && styles.success,
       disabled && styles.disabled,
     ];
 
@@ -199,6 +202,9 @@ const createStyles = (theme: Theme) =>
     },
     error: {
       borderColor: theme.colors.error,
+    },
+    success: {
+      borderColor: theme.colors.success,
     },
     disabled: {
       backgroundColor: theme.colors.disabled,

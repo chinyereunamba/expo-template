@@ -13,7 +13,7 @@ import { Theme } from '@/types';
 
 export interface ButtonProps extends Omit<TouchableOpacityProps, 'style'> {
   title: string;
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
   size?: 'small' | 'medium' | 'large';
   loading?: boolean;
   disabled?: boolean;
@@ -83,7 +83,9 @@ export const Button: React.FC<ButtonProps> = ({
         <ActivityIndicator
           size='small'
           color={
-            variant === 'primary'
+            variant === 'primary' ||
+            variant === 'secondary' ||
+            variant === 'danger'
               ? theme.colors.textInverse
               : theme.colors.primary
           }
@@ -125,6 +127,10 @@ const createStyles = (theme: Theme) =>
     ghost: {
       backgroundColor: 'transparent',
       borderColor: 'transparent',
+    },
+    danger: {
+      backgroundColor: theme.colors.error,
+      borderColor: theme.colors.error,
     },
 
     // Sizes
@@ -172,6 +178,10 @@ const createStyles = (theme: Theme) =>
     },
     ghostText: {
       color: theme.colors.primary,
+      fontSize: theme.typography.fontSizes.md,
+    },
+    dangerText: {
+      color: theme.colors.textInverse,
       fontSize: theme.typography.fontSizes.md,
     },
 

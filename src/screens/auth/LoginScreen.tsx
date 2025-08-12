@@ -1,19 +1,48 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { AuthStackNavigationProp } from '@/types';
 import { useTheme } from '@/hooks/useTheme';
+import { useEnhancedFormValidation } from '@/hooks/useEnhancedFormValidation';
 import { Button } from '@/components/common/Button';
+import { FormInput } from '@/components/forms';
 import { Screen } from '@/components/common/Screen';
+import { NetworkStatus, ApiErrorHandler } from '@/components/common';
+import { useLogin } from '@/services/authApi';
+import { authSchemas } from '@/utils/validationSchemas';
+import { ErrorHandler } from '@/utils/errorHandler';
+import { Ionicons } from '@expo/vector-icons';
+
+interface LoginFormData {
+  email: string;
+  password: string;
+}
 
 export const LoginScreen: React.FC = () => {
   const navigation = useNavigation<AuthStackNavigationProp>();
   const { theme } = useTheme();
+  const [showPassword, setShowPassword] = useState(false);
 
-  const handleLogin = () => {
-    // TODO: Implement login logic in task 10
-    console.log('Login pressed');
-  };
+  const loginMutation = useLogin();
+
+  const form = useEnhancedFormValidation<LoginFormData>({
+    schema: authSchemas.login,
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+    enableRealTimeValidation: true,
+    enableNetworkValidation: true,
+    showNetworkErrors: true,
+    retryAttempts: 2,
+    onError: error => {
+      const errorMessage = ErrorHandler.getContextualError(error, 'login');
+      console.error('Login error:', error);
+    },
+    onSuccess: data => {
+      console.log('Login successful:', data.email);
+    },
+  });
 
   const handleForgotPassword = () => {
     navigation.navigate('ForgotPassword');
@@ -23,8 +52,14 @@ export const LoginScreen: React.FC = () => {
     navigation.navigate('Register');
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <Screen style={styles.container}>
+      <NetworkStatus showWhenOnline={false} />
+
       <View style={styles.header}>
         <Text style={[styles.title, { color: theme.colors.text }]}>
           Welcome Back
@@ -35,28 +70,84 @@ export const LoginScreen: React.FC = () => {
       </View>
 
       <View style={styles.form}>
-        {/* TODO: Add form inputs in task 10 */}
-        <Text
-          style={[styles.placeholder, { color: theme.colors.textSecondary }]}
-        >
-          Login form will be implemented in task 10
-        </Text>
+        <FormInput
+          name='email'
+          control={form.control}
+          label='Email'
+          placeholder='Enter your email'
+          keyboardType='email-address'
+          autoCapitalize='none'
+          autoComplete='email'
+          textContentType='emailAddress'
+          leftIcon={
+            <Ionicons
+              name='mail-outline'
+              size={20}
+              color={theme.colors.textSecondary}
+            />
+          }
+        />
+
+        <FormInput
+          name='password'
+          control={form.control}
+          label='Password'
+          placeholder='Enter your password'
+          secureTextEntry={!showPassword}
+          autoComplete='password'
+          textContentType='password'
+          leftIcon={
+            <Ionicons
+              name='lock-closed-outline'
+              size={20}
+              color={theme.colors.textSecondary}
+            />
+          }
+          rightIcon={
+            <Ionicons
+              name={showPassword ? 'eye-off-outline' : 'eye-outline'}
+              size={20}
+              color={theme.colors.textSecondary}
+            />
+          }
+          onRightIconPress={togglePasswordVisibility}
+        />
       </View>
+
+      {form.lastSubmitError && (
+        <ApiErrorHandler
+          error={form.lastSubmitError}
+          onRetry={() =>
+            form.handleSubmitWithRetry(async data => {
+              await loginMutation.mutateAsync(data);
+            })()
+          }
+          onDismiss={() => form.clearAllErrors()}
+          inline={true}
+          context='login'
+        />
+      )}
 
       <View style={styles.buttonContainer}>
         <Button
           title='Sign In'
-          onPress={handleLogin}
+          onPress={form.handleSubmitWithRetry(async data => {
+            await loginMutation.mutateAsync(data);
+          })}
           variant='primary'
           style={styles.button}
+          loading={form.isSubmittingWithRetry || loginMutation.isPending}
+          disabled={!form.canSubmit || loginMutation.isPending}
         />
 
-        <Button
-          title='Forgot Password?'
+        <TouchableOpacity
           onPress={handleForgotPassword}
-          variant='text'
-          style={styles.button}
-        />
+          style={styles.forgotButton}
+        >
+          <Text style={[styles.forgotText, { color: theme.colors.primary }]}>
+            Forgot Password?
+          </Text>
+        </TouchableOpacity>
 
         <View style={styles.registerContainer}>
           <Text
@@ -64,12 +155,13 @@ export const LoginScreen: React.FC = () => {
           >
             Don't have an account?{' '}
           </Text>
-          <Button
-            title='Sign Up'
-            onPress={handleGoToRegister}
-            variant='text'
-            style={styles.registerButton}
-          />
+          <TouchableOpacity onPress={handleGoToRegister}>
+            <Text
+              style={[styles.registerLink, { color: theme.colors.primary }]}
+            >
+              Sign Up
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     </Screen>
@@ -98,11 +190,7 @@ const styles = StyleSheet.create({
   form: {
     flex: 1,
     justifyContent: 'center',
-  },
-  placeholder: {
-    fontSize: 14,
-    textAlign: 'center',
-    fontStyle: 'italic',
+    paddingBottom: 32,
   },
   buttonContainer: {
     gap: 16,
@@ -110,17 +198,25 @@ const styles = StyleSheet.create({
   button: {
     marginBottom: 0,
   },
+  forgotButton: {
+    alignSelf: 'center',
+    paddingVertical: 8,
+  },
+  forgotText: {
+    fontSize: 14,
+    fontWeight: '500',
+  },
   registerContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 8,
   },
   registerText: {
     fontSize: 14,
   },
-  registerButton: {
-    paddingHorizontal: 0,
-    paddingVertical: 0,
-    minHeight: 'auto',
+  registerLink: {
+    fontSize: 14,
+    fontWeight: '500',
   },
 });

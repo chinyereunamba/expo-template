@@ -63,10 +63,12 @@ export const useAuthStore = create<AuthStore>()(
           refreshToken: tokens.refreshToken,
         }),
 
-      logout: () =>
+      logout: () => {
+        // Clear the persisted state as well
         set({
           ...initialState,
-        }),
+        });
+      },
 
       clearError: () =>
         set({

@@ -49,3 +49,60 @@ export const ValidationUtils = {
     return 'weak';
   },
 };
+
+// Form validation schemas
+export const AuthValidation = {
+  validateLogin: (values: { email: string; password: string }) => {
+    const errors: Partial<Record<keyof typeof values, string>> = {};
+
+    if (!ValidationUtils.isRequired(values.email)) {
+      errors.email = 'Email is required';
+    } else if (!ValidationUtils.isValidEmail(values.email)) {
+      errors.email = 'Please enter a valid email address';
+    }
+
+    if (!ValidationUtils.isRequired(values.password)) {
+      errors.password = 'Password is required';
+    } else if (values.password.length < 6) {
+      errors.password = 'Password must be at least 6 characters';
+    }
+
+    return errors;
+  },
+
+  validateRegister: (values: {
+    name: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+  }) => {
+    const errors: Partial<Record<keyof typeof values, string>> = {};
+
+    if (!ValidationUtils.isRequired(values.name)) {
+      errors.name = 'Name is required';
+    } else if (!ValidationUtils.isValidName(values.name)) {
+      errors.name = 'Name must be at least 2 characters';
+    }
+
+    if (!ValidationUtils.isRequired(values.email)) {
+      errors.email = 'Email is required';
+    } else if (!ValidationUtils.isValidEmail(values.email)) {
+      errors.email = 'Please enter a valid email address';
+    }
+
+    if (!ValidationUtils.isRequired(values.password)) {
+      errors.password = 'Password is required';
+    } else if (!ValidationUtils.isValidPassword(values.password)) {
+      errors.password =
+        'Password must be at least 8 characters with uppercase, lowercase, and number';
+    }
+
+    if (!ValidationUtils.isRequired(values.confirmPassword)) {
+      errors.confirmPassword = 'Please confirm your password';
+    } else if (values.password !== values.confirmPassword) {
+      errors.confirmPassword = 'Passwords do not match';
+    }
+
+    return errors;
+  },
+};

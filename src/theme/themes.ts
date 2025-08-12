@@ -36,12 +36,16 @@ export const lightTheme: Theme = {
     // Status colors
     error: colors.red[600],
     errorLight: colors.red[100],
+    errorBackground: colors.red[50],
     warning: colors.yellow[600],
     warningLight: colors.yellow[100],
+    warningBackground: colors.yellow[50],
     success: colors.green[600],
     successLight: colors.green[100],
+    successBackground: colors.green[50],
     info: colors.blue[600],
     infoLight: colors.blue[100],
+    infoBackground: colors.blue[50],
 
     // UI colors
     border: colors.gray[200],
@@ -92,12 +96,16 @@ export const darkTheme: Theme = {
     // Status colors
     error: colors.red[400],
     errorLight: colors.red[900],
+    errorBackground: colors.red[900],
     warning: colors.yellow[400],
     warningLight: colors.yellow[900],
+    warningBackground: colors.yellow[900],
     success: colors.green[400],
     successLight: colors.green[900],
+    successBackground: colors.green[900],
     info: colors.blue[400],
     infoLight: colors.blue[900],
+    infoBackground: colors.blue[900],
 
     // UI colors
     border: colors.gray[700],

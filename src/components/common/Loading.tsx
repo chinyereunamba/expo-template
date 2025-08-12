@@ -75,7 +75,7 @@ export const InlineLoading: React.FC<InlineLoadingProps> = ({
 // Full screen loading overlay
 export interface LoadingOverlayProps {
   visible: boolean;
-  text?: string;
+  text?: string | undefined;
   backgroundColor?: string;
   opacity?: number;
 }
@@ -130,15 +130,13 @@ export const Skeleton: React.FC<SkeletonProps> = ({
   const { theme } = useTheme();
   const styles = createStyles(theme);
 
-  const skeletonStyle = [
-    styles.skeleton,
-    {
-      width,
-      height,
-      borderRadius,
-    },
-    style,
-  ];
+  const skeletonStyle = {
+    ...styles.skeleton,
+    width,
+    height,
+    borderRadius,
+    ...style,
+  };
 
   return <View style={skeletonStyle} />;
 };

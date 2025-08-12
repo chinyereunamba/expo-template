@@ -1,33 +1,45 @@
 import { create } from 'zustand';
+import { NetworkStatus } from '../utils/network';
 
-interface NetworkState {
-  isOnline: boolean;
-  connectionType: 'wifi' | 'cellular' | 'ethernet' | 'unknown';
-  isConnected: boolean;
-}
+interface NetworkStore extends NetworkStatus {
+  retryCount: number;
+  networkType: string | null;
 
-interface NetworkStore extends NetworkState {
+  // Actions
+  updateNetworkStatus: (status: NetworkStatus) => void;
+  setConnectionStatus: (isConnected: boolean) => void;
   setOnlineStatus: (isOnline: boolean) => void;
-  setConnectionType: (
-    type: 'wifi' | 'cellular' | 'ethernet' | 'unknown'
-  ) => void;
-  setConnected: (isConnected: boolean) => void;
+  setConnectionType: (type: string | null) => void;
+  incrementRetryCount: () => void;
+  resetRetryCount: () => void;
 }
 
-const initialState: NetworkState = {
-  isOnline: true,
-  connectionType: 'unknown',
+const initialState: NetworkStatus = {
   isConnected: true,
+  isInternetReachable: true,
+  type: null,
+  isConnectionExpensive: null,
 };
 
-export const useNetworkStore = create<NetworkStore>(set => ({
+export const useNetworkStore = create<NetworkStore>((set, get) => ({
   ...initialState,
+  retryCount: 0,
+  networkType: null,
 
-  setOnlineStatus: (isOnline: boolean) => set({ isOnline }),
+  updateNetworkStatus: (status: NetworkStatus) =>
+    set({
+      ...status,
+      networkType: status.type,
+    }),
 
-  setConnectionType: (
-    connectionType: 'wifi' | 'cellular' | 'ethernet' | 'unknown'
-  ) => set({ connectionType }),
+  setConnectionStatus: (isConnected: boolean) => set({ isConnected }),
 
-  setConnected: (isConnected: boolean) => set({ isConnected }),
+  setOnlineStatus: (isOnline: boolean) => set({ isConnected: isOnline }),
+
+  setConnectionType: (type: string | null) => set({ type, networkType: type }),
+
+  incrementRetryCount: () =>
+    set(state => ({ retryCount: state.retryCount + 1 })),
+
+  resetRetryCount: () => set({ retryCount: 0 }),
 }));

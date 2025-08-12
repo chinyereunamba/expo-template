@@ -3,6 +3,7 @@ import { useNetworkStore } from '../stores';
 import { APP_CONFIG } from '../constants';
 import { ApiResponse, BaseQueryError } from '../types/api';
 import { ErrorHandler } from '../utils/errorHandler';
+import { tokenManager } from './tokenManager';
 
 // API Client configuration
 const API_CONFIG = {
@@ -43,8 +44,8 @@ class ApiClient {
   }
 
   // Get auth token
-  private getAuthToken(): string | null {
-    return useAuthStore.getState().token;
+  private async getAuthToken(): Promise<string | null> {
+    return tokenManager.getValidToken();
   }
 
   // Get network status
@@ -53,16 +54,16 @@ class ApiClient {
   }
 
   // Build headers
-  private buildHeaders(
+  private async buildHeaders(
     customHeaders?: Record<string, string>
-  ): Record<string, string> {
+  ): Promise<Record<string, string>> {
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
       Accept: 'application/json',
       ...customHeaders,
     };
 
-    const token = this.getAuthToken();
+    const token = await this.getAuthToken();
     if (token) {
       headers.Authorization = `Bearer ${token}`;
     }
@@ -70,36 +71,9 @@ class ApiClient {
     return headers;
   }
 
-  // Handle token refresh
+  // Handle token refresh (delegated to token manager)
   private async refreshToken(): Promise<boolean> {
-    try {
-      const refreshToken = useAuthStore.getState().refreshToken;
-      if (!refreshToken) {
-        return false;
-      }
-
-      const response = await fetch(`${this.baseURL}/auth/refresh`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${refreshToken}`,
-        },
-      });
-
-      if (response.ok) {
-        const data: ApiResponse<{ token: string; refreshToken: string }> =
-          await response.json();
-        useAuthStore.getState().updateTokens({
-          token: data.data.token,
-          refreshToken: data.data.refreshToken,
-        });
-        return true;
-      }
-    } catch (error) {
-      console.error('Token refresh failed:', error);
-    }
-
-    return false;
+    return tokenManager.refreshToken();
   }
 
   // Make request with retry logic
@@ -122,7 +96,7 @@ class ApiClient {
     }
 
     const fullUrl = url.startsWith('http') ? url : `${this.baseURL}${url}`;
-    const requestHeaders = this.buildHeaders(headers);
+    const requestHeaders = await this.buildHeaders(headers);
 
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), timeout);
@@ -131,7 +105,7 @@ class ApiClient {
       const response = await fetch(fullUrl, {
         method: method,
         headers: requestHeaders,
-        body: body ? JSON.stringify(body) : undefined,
+        body: body ? JSON.stringify(body) : null,
         signal: controller.signal,
       });
 

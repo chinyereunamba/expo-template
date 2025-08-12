@@ -66,3 +66,10 @@ pids
 .husky/_
 .kiro
 .vscode
+
+# Build artifacts
+build-info.json
+
+# EAS
+android-service-account.json
+certs/

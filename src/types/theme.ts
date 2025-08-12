@@ -25,12 +25,16 @@ export interface Theme {
     // Status colors
     error: string;
     errorLight: string;
+    errorBackground: string;
     warning: string;
     warningLight: string;
+    warningBackground: string;
     success: string;
     successLight: string;
+    successBackground: string;
     info: string;
     infoLight: string;
+    infoBackground: string;
 
     // UI colors
     border: string;

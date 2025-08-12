@@ -5,20 +5,82 @@
   "build": {
     "development": {
       "developmentClient": true,
-      "distribution": "internal"
+      "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_APP_ENV": "development"
+      },
+      "android": {
+        "gradleCommand": ":app:assembleDebug",
+        "buildType": "developmentClient",
+        "image": "latest"
+      },
+      "ios": {
+        "buildConfiguration": "Debug",
+        "simulator": true,
+        "image": "latest"
+      }
     },
     "preview": {
       "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_APP_ENV": "staging"
+      },
       "android": {
-        "buildType": "apk"
+        "buildType": "apk",
+        "gradleCommand": ":app:assembleRelease",
+        "image": "latest"
+      },
+      "ios": {
+        "buildConfiguration": "Release",
+        "image": "latest"
       }
     },
     "production": {
-      "autoIncrement": true
+      "autoIncrement": true,
+      "env": {
+        "EXPO_PUBLIC_APP_ENV": "production"
+      },
+      "android": {
+        "buildType": "app-bundle",
+        "image": "latest"
+      },
+      "ios": {
+        "buildConfiguration": "Release",
+        "image": "latest"
+      }
+    },
+    "production-simulator": {
+      "extends": "production",
+      "ios": {
+        "simulator": true,
+        "buildConfiguration": "Release"
+      }
     }
   },
   "submit": {
-    "production": {}
+    "production": {
+      "android": {
+        "serviceAccountKeyPath": "./android-service-account.json",
+        "track": "internal",
+        "releaseStatus": "draft"
+      },
+      "ios": {
+        "appleId": "your-apple-id@example.com",
+        "ascAppId": "your-asc-app-id",
+        "appleTeamId": "your-apple-team-id"
+      }
+    },
+    "preview": {
+      "android": {
+        "serviceAccountKeyPath": "./android-service-account.json",
+        "track": "internal"
+      },
+      "ios": {
+        "appleId": "your-apple-id@example.com",
+        "ascAppId": "your-asc-app-id",
+        "appleTeamId": "your-apple-team-id"
+      }
+    }
   },
   "update": {
     "development": {

@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { ProfileTabNavigationProp } from '../../types';
 import { useTheme } from '../../hooks/useTheme';
 import { useAuthStore } from '../../stores';
+import { useLogout } from '../../services/authApi';
 import { Button } from '../../components/common/Button';
 import { Card } from '../../components/common/Card';
 import { Screen } from '../../components/common/Screen';
@@ -11,7 +12,8 @@ import { Screen } from '../../components/common/Screen';
 export const ProfileScreen: React.FC = () => {
   const navigation = useNavigation<ProfileTabNavigationProp>();
   const { theme } = useTheme();
-  const { user, logout } = useAuthStore();
+  const { user } = useAuthStore();
+  const logoutMutation = useLogout();
 
   const handleEditProfile = () => {
     navigation.navigate('EditProfile');
@@ -26,8 +28,19 @@ export const ProfileScreen: React.FC = () => {
   };
 
   const handleLogout = () => {
-    // Show confirmation before logout in a real app
-    logout();
+    Alert.alert('Sign Out', 'Are you sure you want to sign out?', [
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      },
+      {
+        text: 'Sign Out',
+        style: 'destructive',
+        onPress: () => {
+          logoutMutation.mutate();
+        },
+      },
+    ]);
   };
 
   const getInitials = (name: string) => {
@@ -138,6 +151,8 @@ export const ProfileScreen: React.FC = () => {
               onPress={handleLogout}
               variant='danger'
               style={styles.logoutButton}
+              loading={logoutMutation.isPending}
+              disabled={logoutMutation.isPending}
             />
           </Card>
         </View>

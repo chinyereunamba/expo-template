@@ -1,66 +1,226 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+  ScrollView,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { AuthStackNavigationProp } from '../../types';
 import { useTheme } from '../../hooks/useTheme';
+import { useEnhancedFormValidation } from '../../hooks/useEnhancedFormValidation';
 import { Button } from '../../components/common/Button';
+import { FormInput } from '../../components/forms';
 import { Screen } from '../../components/common/Screen';
+import { NetworkStatus, ApiErrorHandler } from '../../components/common';
+import { useRegister } from '../../services/authApi';
+import { authSchemas } from '../../utils/validationSchemas';
+import { ErrorHandler } from '../../utils/errorHandler';
+import { Ionicons } from '@expo/vector-icons';
+
+interface RegisterFormData {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
 
 export const RegisterScreen: React.FC = () => {
   const navigation = useNavigation<AuthStackNavigationProp>();
   const { theme } = useTheme();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const handleRegister = () => {
-    // TODO: Implement registration logic in task 10
-    console.log('Register pressed');
-  };
+  const registerMutation = useRegister();
+
+  const form = useEnhancedFormValidation<RegisterFormData>({
+    schema: authSchemas.register,
+    defaultValues: {
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+    },
+    enableRealTimeValidation: true,
+    enableNetworkValidation: true,
+    showNetworkErrors: true,
+    retryAttempts: 2,
+    onError: error => {
+      const errorMessage = ErrorHandler.getContextualError(error, 'register');
+      console.error('Registration error:', error);
+    },
+    onSuccess: data => {
+      console.log('Registration successful:', data.email);
+    },
+  });
 
   const handleGoToLogin = () => {
     navigation.navigate('Login');
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
+
   return (
     <Screen style={styles.container}>
-      <View style={styles.header}>
-        <Text style={[styles.title, { color: theme.colors.text }]}>
-          Create Account
-        </Text>
-        <Text style={[styles.subtitle, { color: theme.colors.textSecondary }]}>
-          Sign up to get started
-        </Text>
-      </View>
+      <NetworkStatus showWhenOnline={false} />
 
-      <View style={styles.form}>
-        {/* TODO: Add form inputs in task 10 */}
-        <Text
-          style={[styles.placeholder, { color: theme.colors.textSecondary }]}
-        >
-          Registration form will be implemented in task 10
-        </Text>
-      </View>
-
-      <View style={styles.buttonContainer}>
-        <Button
-          title='Create Account'
-          onPress={handleRegister}
-          variant='primary'
-          style={styles.button}
-        />
-
-        <View style={styles.loginContainer}>
-          <Text
-            style={[styles.loginText, { color: theme.colors.textSecondary }]}
-          >
-            Already have an account?{' '}
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.header}>
+          <Text style={[styles.title, { color: theme.colors.text }]}>
+            Create Account
           </Text>
-          <Button
-            title='Sign In'
-            onPress={handleGoToLogin}
-            variant='text'
-            style={styles.loginButton}
+          <Text
+            style={[styles.subtitle, { color: theme.colors.textSecondary }]}
+          >
+            Sign up to get started
+          </Text>
+        </View>
+
+        <View style={styles.form}>
+          <FormInput
+            name='name'
+            control={form.control}
+            label='Full Name'
+            placeholder='Enter your full name'
+            autoCapitalize='words'
+            autoComplete='name'
+            textContentType='name'
+            leftIcon={
+              <Ionicons
+                name='person-outline'
+                size={20}
+                color={theme.colors.textSecondary}
+              />
+            }
+          />
+
+          <FormInput
+            name='email'
+            control={form.control}
+            label='Email'
+            placeholder='Enter your email'
+            keyboardType='email-address'
+            autoCapitalize='none'
+            autoComplete='email'
+            textContentType='emailAddress'
+            leftIcon={
+              <Ionicons
+                name='mail-outline'
+                size={20}
+                color={theme.colors.textSecondary}
+              />
+            }
+          />
+
+          <FormInput
+            name='password'
+            control={form.control}
+            label='Password'
+            placeholder='Create a password'
+            secureTextEntry={!showPassword}
+            autoComplete='new-password'
+            textContentType='newPassword'
+            showValidationFeedback={true}
+            validationFeedbackType='password'
+            leftIcon={
+              <Ionicons
+                name='lock-closed-outline'
+                size={20}
+                color={theme.colors.textSecondary}
+              />
+            }
+            rightIcon={
+              <Ionicons
+                name={showPassword ? 'eye-off-outline' : 'eye-outline'}
+                size={20}
+                color={theme.colors.textSecondary}
+              />
+            }
+            onRightIconPress={togglePasswordVisibility}
+          />
+
+          <FormInput
+            name='confirmPassword'
+            control={form.control}
+            label='Confirm Password'
+            placeholder='Confirm your password'
+            secureTextEntry={!showConfirmPassword}
+            autoComplete='new-password'
+            textContentType='newPassword'
+            leftIcon={
+              <Ionicons
+                name='lock-closed-outline'
+                size={20}
+                color={theme.colors.textSecondary}
+              />
+            }
+            rightIcon={
+              <Ionicons
+                name={showConfirmPassword ? 'eye-off-outline' : 'eye-outline'}
+                size={20}
+                color={theme.colors.textSecondary}
+              />
+            }
+            onRightIconPress={toggleConfirmPasswordVisibility}
           />
         </View>
-      </View>
+
+        {form.lastSubmitError && (
+          <ApiErrorHandler
+            error={form.lastSubmitError}
+            onRetry={() =>
+              form.handleSubmitWithRetry(async data => {
+                await registerMutation.mutateAsync({
+                  name: data.name,
+                  email: data.email,
+                  password: data.password,
+                });
+              })()
+            }
+            onDismiss={() => form.clearAllErrors()}
+            inline={true}
+            context='register'
+          />
+        )}
+
+        <View style={styles.buttonContainer}>
+          <Button
+            title='Create Account'
+            onPress={form.handleSubmitWithRetry(async data => {
+              await registerMutation.mutateAsync({
+                name: data.name,
+                email: data.email,
+                password: data.password,
+              });
+            })}
+            variant='primary'
+            style={styles.button}
+            loading={form.isSubmittingWithRetry || registerMutation.isPending}
+            disabled={!form.canSubmit || registerMutation.isPending}
+          />
+
+          <View style={styles.loginContainer}>
+            <Text
+              style={[styles.loginText, { color: theme.colors.textSecondary }]}
+            >
+              Already have an account?{' '}
+            </Text>
+            <TouchableOpacity onPress={handleGoToLogin}>
+              <Text style={[styles.loginLink, { color: theme.colors.primary }]}>
+                Sign In
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </ScrollView>
     </Screen>
   );
 };
@@ -73,7 +233,7 @@ const styles = StyleSheet.create({
   },
   header: {
     alignItems: 'center',
-    marginBottom: 48,
+    marginBottom: 32,
   },
   title: {
     fontSize: 28,
@@ -85,16 +245,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   form: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  placeholder: {
-    fontSize: 14,
-    textAlign: 'center',
-    fontStyle: 'italic',
+    marginBottom: 32,
   },
   buttonContainer: {
     gap: 16,
+    marginBottom: 32,
   },
   button: {
     marginBottom: 0,
@@ -103,13 +258,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 8,
   },
   loginText: {
     fontSize: 14,
   },
-  loginButton: {
-    paddingHorizontal: 0,
-    paddingVertical: 0,
-    minHeight: 'auto',
+  loginLink: {
+    fontSize: 14,
+    fontWeight: '500',
   },
 });

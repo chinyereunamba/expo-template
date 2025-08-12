@@ -110,7 +110,7 @@ export const authApi = {
 
 // React Query hooks
 export const useLogin = () => {
-  const { setCredentials, setError, setLoading } = useAuthStore();
+  const { loginSuccess, setError, setLoading } = useAuthStore();
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -120,12 +120,11 @@ export const useLogin = () => {
       setError(null);
     },
     onSuccess: data => {
-      setCredentials({
+      loginSuccess({
         user: data.data.user,
         token: data.data.token,
         refreshToken: data.data.refreshToken,
       });
-      setLoading(false);
 
       // Invalidate and refetch user data
       queryClient.invalidateQueries({ queryKey: authKeys.all });
@@ -140,7 +139,7 @@ export const useLogin = () => {
 };
 
 export const useRegister = () => {
-  const { setCredentials, setError, setLoading } = useAuthStore();
+  const { loginSuccess, setError, setLoading } = useAuthStore();
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -150,12 +149,11 @@ export const useRegister = () => {
       setError(null);
     },
     onSuccess: data => {
-      setCredentials({
+      loginSuccess({
         user: data.data.user,
         token: data.data.token,
         refreshToken: data.data.refreshToken,
       });
-      setLoading(false);
 
       // Invalidate and refetch user data
       queryClient.invalidateQueries({ queryKey: authKeys.all });
@@ -175,15 +173,13 @@ export const useLogout = () => {
 
   return useMutation({
     mutationFn: authApi.logout,
-    onSuccess: () => {
+    onMutate: () => {
+      // Start cleanup immediately
       logout();
-      // Clear all cached data
       queryClient.clear();
     },
     onError: (error: any) => {
-      // Even if logout fails on server, clear local state
-      logout();
-      queryClient.clear();
+      // Log error but don't revert logout
       ErrorHandler.logError(error, 'logout');
     },
   });
