@@ -16,20 +16,21 @@ import { networkMonitor } from '@/utils/networkMonitor';
 import { stateInspector } from '@/utils/zustandDevtools';
 
 // Only render in development mode
-if (!APP_CONFIG.DEBUG) {
-  // Return empty component in production
-   export  const DevMenu: React.FC = () => null;
-    
-} else {
+
   interface DevMenuProps {
     screenName?: string;
   }
-
+  
  export const DevMenu: React.FC<DevMenuProps> = ({
-    screenName = 'Unknown',
+   screenName = 'Unknown',
   }) => {
     const [visible, setVisible] = useState(false);
-    const { theme } = useTheme();
+   const { theme } = useTheme();
+   
+    if (!APP_CONFIG.DEBUG) {
+      // Return empty component in production
+      return null;
+      }
     const logger = AppLogger.setContext(`DevMenu:${screenName}`);
 
     const handleLogScreenView = () => {
@@ -161,7 +162,7 @@ if (!APP_CONFIG.DEBUG) {
       </>
     );
   };
-}
+
 
 const styles = StyleSheet.create({
   closeButton: {

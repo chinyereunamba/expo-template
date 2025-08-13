@@ -1,39 +1,50 @@
 # Expo Mobile Skeleton
 
-A scalable mobile app skeleton built with Expo React Native and TypeScript.
+A production-ready mobile app skeleton built with Expo React Native and TypeScript, featuring comprehensive development tools, state management, and a complete authentication flow.
 
 ## Features
 
-- 🚀 Expo SDK 50+ with TypeScript
-- 📱 Cross-platform (iOS, Android, Web)
-- 🎨 Structured component architecture
-- 🧭 Navigation ready (React Navigation)
-- 🔧 Development tools configured (ESLint, Prettier, Husky)
-- 📦 State management ready
-- 🎯 Path aliases configured
-- 🧪 Testing setup with Jest
+- 🚀 **Expo SDK 50+** with TypeScript and strict type checking
+- 📱 **Cross-platform** support (iOS, Android, Web)
+- 🎨 **Complete UI System** with theme support (light/dark/system modes)
+- 🧭 **Type-safe Navigation** with React Navigation 6
+- 🔐 **Authentication Flow** with secure token management
+- 📦 **Modern State Management** with Zustand stores
+- 🛠️ **Development Tools** including debug menu and performance monitoring
+- 🧪 **Comprehensive Testing** setup with Jest and React Native Testing Library
+- 🔧 **Code Quality Tools** (ESLint, Prettier, Husky)
+- 🚀 **Production Ready** with EAS Build and deployment configuration
+- ♿ **Accessibility Support** with screen reader compatibility
+- 🎯 **Path Aliases** configured for clean imports
 
 ## Project Structure
 
 ```
 src/
 ├── components/          # Reusable UI components
-│   ├── common/         # Generic components
-│   └── forms/          # Form-specific components
-├── screens/            # Screen components
-│   ├── auth/          # Authentication screens
-│   ├── home/          # Home/dashboard screens
-│   └── profile/       # User profile screens
-├── navigation/         # Navigation configuration
-├── services/          # API and external service integrations
-├── store/             # State management
-│   ├── slices/        # Redux slices
-│   └── api/           # RTK Query API definitions
-├── utils/             # Utility functions and helpers
+│   ├── common/         # Generic components (Button, Input, Loading, DevMenu)
+│   ├── forms/          # Form-specific components with validation
+│   └── examples/       # Example/demo components
+├── screens/            # Screen components organized by feature
+│   ├── auth/          # Authentication flow screens
+│   ├── home/          # Home section screens
+│   ├── profile/       # User profile screens
+│   ├── settings/      # App settings screens
+│   └── debug/         # Development debug screens
+├── navigation/         # Navigation configuration and navigators
+├── store/             # Zustand state management
+│   ├── authStore.ts   # Authentication state
+│   ├── appStore.ts    # App settings and theme
+│   └── networkStore.ts # Network connectivity state
+├── services/          # API clients and external services
 ├── hooks/             # Custom React hooks
+├── utils/             # Utility functions and helpers
+├── theme/             # Theme system and styling utilities
 ├── types/             # TypeScript type definitions
-├── constants/         # App constants and configuration
-└── assets/            # Images, fonts, and other static assets
+├── contexts/          # React contexts
+├── providers/         # Provider components
+├── config/            # App configuration and environment
+└── constants/         # App constants and theme tokens
 ```
 
 ## Getting Started
@@ -161,13 +172,45 @@ EXPO_PUBLIC_SENTRY_DSN=your-sentry-dsn
 
 For detailed configuration information, see [Configuration Guide](docs/CONFIGURATION.md) and [Build & Deployment Guide](docs/BUILD_AND_DEPLOYMENT.md).
 
+## Architecture & Documentation
+
+### Core Architecture
+
+- **State Management**: Zustand stores with persistence and TypeScript support
+- **Navigation**: Type-safe React Navigation with authentication flow
+- **Theme System**: Comprehensive theming with light/dark/system modes
+- **Error Handling**: Global error boundaries with crash reporting
+- **Performance**: Lazy loading, memory management, and optimization utilities
+
+### Development Tools
+
+- **Debug Menu**: In-app debugging interface (development only)
+- **Performance Monitoring**: Memory usage and performance tracking
+- **Network Monitoring**: API request/response logging
+- **State Inspection**: Real-time state debugging
+- **Crash Reporting**: Error tracking and reporting utilities
+
+### Documentation
+
+- 📖 [Architecture Guide](docs/ARCHITECTURE.md) - System architecture and design patterns
+- 🧩 [Components Documentation](docs/COMPONENTS.md) - Complete component library reference
+- 🛠️ [Development Tools](docs/DEVELOPMENT_TOOLS.md) - Debugging and development utilities
+- 🌐 [Services & API](docs/SERVICES_API.md) - API integration and services layer
+- 🔧 [Utils & Hooks](docs/UTILS_HOOKS.md) - Utility functions and custom hooks
+- ⚙️ [Configuration Guide](docs/CONFIGURATION.md) - Environment and build configuration
+- 🚀 [Build & Deployment](docs/BUILD_AND_DEPLOYMENT.md) - Build and deployment processes
+- 🔄 [Migration Summary](docs/MIGRATION_SUMMARY.md) - Redux to Zustand migration details
+- ✅ [Final Integration](docs/FINAL_INTEGRATION.md) - Integration completion status
+
 ## Code Quality
 
-This project uses:
+This project maintains high code quality with:
 
-- **ESLint** for code linting
-- **Prettier** for code formatting
-- **Husky** for git hooks
-- **TypeScript** for type safety
+- **TypeScript** with strict mode enabled
+- **ESLint** for code linting with React Native rules
+- **Prettier** for consistent code formatting
+- **Husky** for pre-commit hooks
+- **Jest** for unit and integration testing
+- **React Native Testing Library** for component testing
 
-Pre-commit hooks automatically run linting and formatting.
+Pre-commit hooks automatically run linting, formatting, and type checking.

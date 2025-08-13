@@ -414,6 +414,7 @@ export class MemoryUsageMonitor {
 /**
  * Component wrapper for memory leak detection
  */
+
 export function withMemoryLeakDetection<P extends object>(
   Component: React.ComponentType<P>,
   componentName?: string
@@ -429,6 +430,7 @@ export function withMemoryLeakDetection<P extends object>(
   
   return WrappedComponent;
 }
+
 
 /**
  * Hook for monitoring component render performance

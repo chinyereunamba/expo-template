@@ -5,6 +5,16 @@ import {
   mockResponses,
 } from '@/utils/test-server';
 
+jest.mock('@/store/networkStore', () => ({
+  useNetworkStore: {
+    getState: jest.fn(() => ({
+      isConnected: true,
+      incrementRetryCount: jest.fn(),
+      resetRetryCount: jest.fn(),
+    })),
+  },
+}));
+
 // Mock the global fetch
 const mockFetch = createMockFetch();
 global.fetch = mockFetch;
