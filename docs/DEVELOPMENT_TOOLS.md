@@ -314,37 +314,205 @@ export const useAuthStore = create<AuthStore>()(
 
 ### Crash Reporter
 
-**Location**: `src/utils/crashReporter.ts`
+**Location**: `src/utils/crashReporter.tsx`
 
 #### Features
 
-- **Error Capture**: Automatic error capturing
-- **Context Collection**: Gather error context
-- **User Feedback**: Collect user feedback on crashes
-- **Test Crashes**: Generate test crashes for validation
+- **Infinite Loop Prevention**: Built-in protection against recursive error reporting
+- **React Native Compatible Error Capture**: Uses `global.ErrorUtils.setGlobalHandler` for optimal React Native error handling
+- **Smart Console Error Override**: Intelligently captures console errors while preventing self-reporting loops
+- **Global Error Handling**: Automatically captures unhandled errors and promise rejections
+- **Context Collection**: Gathers comprehensive error context including screen, user, and device information
+- **Local Storage**: Persists crash reports using AsyncStorage for offline analysis
+- **Statistics & Analytics**: Provides crash statistics and analytics
+- **External Service Integration**: Ready for integration with Sentry, Crashlytics, Bugsnag, etc.
+- **React Hook Support**: Includes `useCrashReporter` hook for component-level integration
+- **HOC Support**: Provides `withCrashReporting` higher-order component
+- **Debug Mode Support**: Enhanced logging in debug mode with production-ready silent operation
+- **Test Crash Functionality**: Built-in test crash generation for development
+
+#### Global Error Handling Setup
+
+The crash reporter automatically configures React Native compatible error handlers with infinite loop prevention:
+
+```typescript
+// React Native ErrorUtils integration with loop prevention
+if (typeof global !== 'undefined' && (global as any).ErrorUtils) {
+  const originalHandler = (global as any).ErrorUtils.setGlobalHandler;
+  (global as any).ErrorUtils.setGlobalHandler(
+    (error: Error, isFatal?: boolean) => {
+      if (!this.isReporting) {
+        this.reportCrash(error, isFatal ? 'Fatal Error' : 'Non-Fatal Error');
+      }
+      // Call original handler if it exists
+      if (originalHandler) {
+        originalHandler(error, isFatal);
+      }
+    }
+  );
+}
+
+// Smart console error override with filtering
+const originalConsoleError = console.error;
+console.error = (...args) => {
+  // Prevent infinite loops and ignore crash reporter's own errors
+  if (
+    !this.isReporting &&
+    !args[0]?.toString().includes('CrashReporter') &&
+    !args[0]?.toString().includes('Failed to save crashes') &&
+    !args[0]?.toString().includes('Failed to load crashes')
+  ) {
+    // Check if this looks like an error
+    if (
+      args[0] instanceof Error ||
+      (typeof args[0] === 'string' && args[0].includes('Error'))
+    ) {
+      const error = args[0] instanceof Error ? args[0] : new Error(args[0]);
+      this.reportCrash(error, 'Console Error');
+    }
+  }
+  originalConsoleError.apply(console, args);
+};
+```
+
+#### Infinite Loop Prevention
+
+The crash reporter includes comprehensive protection against infinite loops:
+
+- **Reporting State Tracking**: Uses `isReporting` flag to prevent recursive calls
+- **Smart Filtering**: Ignores crash reporter's own error messages
+- **Safe Error Handling**: Wraps all operations in try-catch blocks
+- **Debug Mode Logging**: Temporarily restores original console.error for safe logging
 
 #### Usage
 
 ```typescript
-import { crashReporter } from '@/utils/crashReporter';
+import { crashReporter, useCrashReporter, withCrashReporting } from '@/utils/crashReporter';
 
-// Initialize crash reporting
-crashReporter.initialize();
+// Manual crash reporting
+crashReporter.reportCrash(
+  new Error('Custom error'),
+  'User Action',
+  {
+    screen: 'HomeScreen',
+    userId: '123',
+    appState: { currentTab: 'home' }
+  }
+);
 
-// Report custom error
-crashReporter.reportError(new Error('Custom error'), {
-  screen: 'HomeScreen',
-  action: 'button-press',
-});
+// Using React hook
+const DebugComponent = () => {
+  const {
+    crashes,
+    stats,
+    recentCrashes,
+    reportCrash,
+    clearCrashes,
+    exportCrashes,
+    testCrash
+  } = useCrashReporter();
 
-// Test crash reporting
-crashReporter.testCrash();
+  return (
+    <View>
+      <Text>Total Crashes: {stats.total}</Text>
+      <Text>Recent Crashes (24h): {stats.recent}</Text>
+      <Text>Most Common: {stats.mostCommon.join(', ')}</Text>
+      <Text>Crashes by Screen:</Text>
+      {Object.entries(stats.byScreen).map(([screen, count]) => (
+        <Text key={screen}>  {screen}: {count}</Text>
+      ))}
+      <Button title="Test Crash" onPress={testCrash} />
+      <Button title="Clear Crashes" onPress={clearCrashes} />
+      <Button title="Export Crashes" onPress={() => console.log(exportCrashes())} />
+    </View>
+  );
+};
 
-// Set user context
-crashReporter.setUserContext({
-  userId: '123',
-  email: 'user@example.com',
-});
+// Using HOC for automatic crash reporting
+const SafeComponent = withCrashReporting(MyComponent, 'MyComponent');
+
+// Automatic error capture examples
+// These will be automatically captured:
+console.error(new Error('This will be captured'));
+console.error('String error: This will also be captured');
+throw new Error('Unhandled error - will be captured by ErrorUtils');
+
+// Development testing
+if (__DEV__) {
+  // Test crash reporting
+  crashReporter.testCrash();
+
+  // Get crash statistics
+  const stats = crashReporter.getCrashStats();
+  console.log('Crash Statistics:', stats);
+
+  // Export crashes for analysis
+  const crashData = crashReporter.exportCrashes();
+  console.log('All Crashes:', crashData);
+}
+```
+
+#### Debug vs Production Behavior
+
+- **Debug Mode (`APP_CONFIG.DEBUG = true`)**:
+  - Enhanced console logging with crash details
+  - Crash statistics updates every 5 seconds
+  - Test crash functionality available
+  - Detailed error context logging
+
+- **Production Mode (`APP_CONFIG.DEBUG = false`)**:
+  - Silent operation with no console output
+  - Automatic integration with external crash services
+  - Optimized performance with minimal overhead
+  - Secure error reporting without sensitive data exposure
+
+#### Crash Report Structure
+
+```typescript
+interface CrashReport {
+  id: string;
+  timestamp: number;
+  error: {
+    name: string;
+    message: string;
+    stack?: string;
+  };
+  context: {
+    screen?: string;
+    action?: string;
+    userId?: string;
+    appVersion: string;
+    platform: string;
+  };
+  deviceInfo: {
+    userAgent: string;
+    language: string;
+    timezone: string;
+  };
+  appState: any;
+}
+```
+
+#### Integration with External Services
+
+```typescript
+// Example Sentry integration
+private async sendCrashReport(crashReport: CrashReport): Promise<void> {
+  try {
+    // Sentry.captureException(crashReport.error, {
+    //   contexts: {
+    //     app: crashReport.context,
+    //     device: crashReport.deviceInfo,
+    //   },
+    //   tags: {
+    //     screen: crashReport.context.screen,
+    //     userId: crashReport.context.userId,
+    //   },
+    // });
+  } catch (error) {
+    AppLogger.error('Failed to send crash report', error);
+  }
+}
 ```
 
 ## Testing Utilities
@@ -355,32 +523,117 @@ crashReporter.setUserContext({
 
 #### Features
 
-- **Provider Mocking**: Mock all app providers
-- **Store Mocking**: Mock Zustand stores
-- **Navigation Mocking**: Mock navigation props
-- **API Mocking**: Mock API responses
+- **Provider Mocking**: Mock all app providers (Theme, Navigation, QueryClient)
+- **Store Mocking**: Mock Zustand stores with jest functions
+- **Navigation Mocking**: Mock navigation props and route objects
+- **API Mocking**: Mock API responses and error scenarios
+- **Form Testing**: Utilities for testing form interactions
+- **Async Operations**: Helpers for handling async test scenarios
+- **Network Mocking**: Mock network connectivity and status
+- **Storage Mocking**: Mock AsyncStorage operations
+- **Assertion Utilities**: Common assertion helpers for testing
 
-#### Usage
+#### Core Mock Objects
 
 ```typescript
 import {
-  renderWithProviders,
-  mockAuthState,
+  mockUser,
+  mockAuthStore,
+  mockAppStore,
   mockNavigation,
-  mockApiResponse
+  mockRoute,
+  mockNetworkStatus,
+  mockAsyncStorage,
 } from '@/utils/test-helpers';
 
-// Render component with all providers
+// Pre-configured mock data
+const user = mockUser; // Complete user object with preferences
+const authStore = mockAuthStore; // Mock auth store with jest functions
+const appStore = mockAppStore; // Mock app store with settings
+```
+
+#### Custom Render Function
+
+```typescript
+import { renderWithProviders } from '@/utils/test-helpers';
+
+// Basic render with providers
 const { getByText } = renderWithProviders(<MyComponent />);
 
-// Mock authentication state
-mockAuthState({ user: mockUser, isAuthenticated: true });
+// Advanced render with options
+const { getByText } = renderWithProviders(<MyComponent />, {
+  theme: 'dark',                    // Theme selection
+  withNavigation: true,             // Include NavigationContainer
+  withQueryClient: true,            // Include QueryClientProvider
+  initialEntries: ['/home']         // Navigation initial routes
+});
+```
 
-// Mock navigation
-const navigation = mockNavigation();
+#### API Response Mocking
 
-// Mock API response
-mockApiResponse('/api/users', { users: [mockUser] });
+```typescript
+import {
+  createMockApiResponse,
+  createMockApiError,
+} from '@/utils/test-helpers';
+
+// Mock successful API response
+const successResponse = createMockApiResponse(
+  { users: [mockUser] },
+  true // success flag
+);
+
+// Mock API error response
+const errorResponse = createMockApiError(
+  'User not found',
+  404 // status code
+);
+```
+
+#### Form Testing Utilities
+
+```typescript
+import { fillForm, waitForLoadingToFinish } from '@/utils/test-helpers';
+
+// Fill multiple form fields
+await fillForm(getByPlaceholderText, {
+  Email: 'test@example.com',
+  Password: 'password123',
+  'Confirm Password': 'password123',
+});
+
+// Wait for async operations to complete
+await waitForLoadingToFinish();
+```
+
+#### Store Testing
+
+```typescript
+import { createMockStore } from '@/utils/test-helpers';
+
+// Create mock store with overrides
+const mockStore = createMockStore({
+  user: mockUser,
+  isAuthenticated: true,
+  theme: 'dark',
+});
+```
+
+#### Assertion Helpers
+
+```typescript
+import {
+  expectToBeVisible,
+  expectToHaveText,
+  expectToBeDisabled,
+  expectToBeEnabled,
+} from '@/utils/test-helpers';
+
+// Use assertion helpers
+expectToBeVisible(getByTestId('submit-button'));
+expectToHaveText(getByTestId('title'), 'Welcome');
+expectToBeDisabled(getByTestId('submit-button'));
+expectToBeEnabled(getByTestId('cancel-button'));
 ```
 
 ### Test Server

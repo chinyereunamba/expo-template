@@ -98,6 +98,27 @@ export const authApi = {
     return response.data;
   },
 
+  // Forgot password
+  forgotPassword: async (email: string): Promise<ApiResponse<void>> => {
+    const response = await apiClient.post<ApiResponse<void>>(
+      '/auth/forgot-password',
+      { email }
+    );
+    return response.data;
+  },
+
+  // Reset password
+  resetPassword: async (resetData: {
+    token: string;
+    password: string;
+  }): Promise<ApiResponse<void>> => {
+    const response = await apiClient.post<ApiResponse<void>>(
+      '/auth/reset-password',
+      resetData
+    );
+    return response.data;
+  },
+
   // Delete account
   deleteAccount: async (password: string): Promise<ApiResponse<void>> => {
     const response = await apiClient.delete<ApiResponse<void>>(
@@ -233,7 +254,7 @@ export const useUpdateProfile = () => {
 
       return { previousProfile };
     },
-    onError: (error, newData, context) => {
+    onError: (error, _newData, context) => {
       // Rollback on error
       if (context?.previousProfile) {
         queryClient.setQueryData(authKeys.profile(), context.previousProfile);
@@ -275,6 +296,24 @@ export const useUploadAvatar = () => {
   });
 };
 
+export const useForgotPassword = () => {
+  return useMutation({
+    mutationFn: authApi.forgotPassword,
+    onError: (error: any) => {
+      ErrorHandler.logError(error, 'forgotPassword');
+    },
+  });
+};
+
+export const useResetPassword = () => {
+  return useMutation({
+    mutationFn: authApi.resetPassword,
+    onError: (error: any) => {
+      ErrorHandler.logError(error, 'resetPassword');
+    },
+  });
+};
+
 export const useDeleteAccount = () => {
   const { logout } = useAuthStore();
   const queryClient = useQueryClient();
@@ -285,7 +324,7 @@ export const useDeleteAccount = () => {
       logout();
       queryClient.clear();
     },
-    onError: (error: any) => {
+    onError: (error: unknown) => {
       ErrorHandler.logError(error, 'deleteAccount');
     },
   });

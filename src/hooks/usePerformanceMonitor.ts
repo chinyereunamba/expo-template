@@ -2,6 +2,9 @@ import { useEffect, useRef, useCallback } from 'react';
 import { AppLogger } from '@/utils/logger';
 import { APP_CONFIG } from '@/config/environment';
 
+// Add React import
+import React from 'react';
+
 interface PerformanceMetrics {
   renderTime: number;
   mountTime: number;
@@ -135,6 +138,3 @@ export const withPerformanceMonitoring = <P extends object>(
 
   return WrappedComponent;
 };
-
-// Add React import
-import React from 'react';

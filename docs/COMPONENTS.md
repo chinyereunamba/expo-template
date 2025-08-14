@@ -312,15 +312,23 @@ Provides global error handling and recovery.
 
 **Functions**:
 
-- `renderWithProviders()` - Render components with all providers
-- `mockAuthState()` - Mock authentication state
-- `mockTheme()` - Mock theme context
-- `createMockNavigation()` - Mock navigation props
+- `renderWithProviders()` - Render components with all providers (Theme, Navigation, QueryClient)
+- `mockUser` - Pre-configured user object with all required fields
+- `mockAuthStore` - Mock authentication store with jest functions
+- `mockAppStore` - Mock app store with settings and theme
+- `mockNavigation` - Mock navigation object with all required methods
+- `mockRoute` - Mock route object for navigation testing
+- `createMockApiResponse()` - Create mock API success responses
+- `createMockApiError()` - Create mock API error responses
+- `fillForm()` - Helper for filling form fields in tests
+- `waitForLoadingToFinish()` - Wait for async operations to complete
+- `expectToBeVisible()` - Assert element visibility
+- `expectToHaveText()` - Assert element text content
 
 ### Example Test
 
 ```typescript
-import { renderWithProviders } from '@/utils/test-helpers';
+import { renderWithProviders, mockNavigation } from '@/utils/test-helpers';
 import { Button } from '@/components/common/Button';
 
 test('renders button with title', () => {
@@ -329,6 +337,17 @@ test('renders button with title', () => {
   );
 
   expect(getByText('Test Button')).toBeTruthy();
+});
+
+test('renders button with navigation', () => {
+  const navigation = mockNavigation;
+  const { getByText } = renderWithProviders(
+    <Button title="Navigate" onPress={() => navigation.navigate('Home')} />,
+    { withNavigation: true }
+  );
+
+  fireEvent.press(getByText('Navigate'));
+  expect(navigation.navigate).toHaveBeenCalledWith('Home');
 });
 ```
 

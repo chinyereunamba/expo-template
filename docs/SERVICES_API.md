@@ -74,49 +74,225 @@ Handles all authentication-related API calls including login, registration, toke
 #### Methods
 
 ```typescript
-export const authService = {
+export const authApi = {
   // User authentication
-  login: async (credentials: LoginCredentials): Promise<AuthResponse> => {
-    const response = await apiClient.post('/auth/login', credentials);
-    await tokenManager.setTokens(response.accessToken, response.refreshToken);
-    return response;
+  login: async (
+    credentials: LoginRequest
+  ): Promise<ApiResponse<AuthResponse>> => {
+    const response = await apiClient.post<ApiResponse<AuthResponse>>(
+      '/auth/login',
+      credentials
+    );
+    return response.data;
   },
 
   // User registration
-  register: async (userData: RegisterData): Promise<AuthResponse> => {
-    const response = await apiClient.post('/auth/register', userData);
-    await tokenManager.setTokens(response.accessToken, response.refreshToken);
-    return response;
+  register: async (
+    userData: RegisterRequest
+  ): Promise<ApiResponse<AuthResponse>> => {
+    const response = await apiClient.post<ApiResponse<AuthResponse>>(
+      '/auth/register',
+      userData
+    );
+    return response.data;
   },
 
   // Token refresh
-  refreshToken: async (): Promise<AuthResponse> => {
-    const refreshToken = await tokenManager.getRefreshToken();
-    const response = await apiClient.post('/auth/refresh', { refreshToken });
-    await tokenManager.setTokens(response.accessToken, response.refreshToken);
-    return response;
+  refreshToken: async (): Promise<
+    ApiResponse<{ token: string; refreshToken: string }>
+  > => {
+    const response =
+      await apiClient.post<
+        ApiResponse<{ token: string; refreshToken: string }>
+      >('/auth/refresh');
+    return response.data;
   },
 
-  // Password reset
-  forgotPassword: async (email: string): Promise<void> => {
-    await apiClient.post('/auth/forgot-password', { email });
+  // Password reset request
+  forgotPassword: async (email: string): Promise<ApiResponse<void>> => {
+    const response = await apiClient.post<ApiResponse<void>>(
+      '/auth/forgot-password',
+      { email }
+    );
+    return response.data;
   },
 
   // Password reset confirmation
-  resetPassword: async (token: string, newPassword: string): Promise<void> => {
-    await apiClient.post('/auth/reset-password', { token, newPassword });
+  resetPassword: async (resetData: {
+    token: string;
+    password: string;
+  }): Promise<ApiResponse<void>> => {
+    const response = await apiClient.post<ApiResponse<void>>(
+      '/auth/reset-password',
+      resetData
+    );
+    return response.data;
   },
 
   // User logout
-  logout: async (): Promise<void> => {
-    await apiClient.post('/auth/logout');
-    await tokenManager.clearTokens();
+  logout: async (): Promise<ApiResponse<void>> => {
+    const response = await apiClient.post<ApiResponse<void>>('/auth/logout');
+    return response.data;
   },
 
-  // Get current user
-  getCurrentUser: async (): Promise<User> => {
-    return apiClient.get('/auth/me');
+  // Get user profile
+  getProfile: async (): Promise<ApiResponse<User>> => {
+    const response = await apiClient.get<ApiResponse<User>>('/user/profile');
+    return response.data;
   },
+
+  // Update user profile
+  updateProfile: async (
+    userData: Partial<User>
+  ): Promise<ApiResponse<User>> => {
+    const response = await apiClient.put<ApiResponse<User>>(
+      '/user/profile',
+      userData
+    );
+    return response.data;
+  },
+
+  // Change password
+  changePassword: async (passwordData: {
+    currentPassword: string;
+    newPassword: string;
+  }): Promise<ApiResponse<void>> => {
+    const response = await apiClient.post<ApiResponse<void>>(
+      '/user/change-password',
+      passwordData
+    );
+    return response.data;
+  },
+
+  // Upload avatar
+  uploadAvatar: async (
+    formData: FormData
+  ): Promise<ApiResponse<{ avatarUrl: string }>> => {
+    const response = await apiClient.upload<ApiResponse<{ avatarUrl: string }>>(
+      '/user/avatar',
+      formData
+    );
+    return response.data;
+  },
+
+  // Delete account
+  deleteAccount: async (password: string): Promise<ApiResponse<void>> => {
+    const response = await apiClient.delete<ApiResponse<void>>(
+      '/user/account',
+      { body: { password } }
+    );
+    return response.data;
+  },
+};
+```
+
+#### React Query Hooks
+
+The auth service also provides React Query hooks for easy integration with components:
+
+```typescript
+// Authentication hooks
+export const useLogin = () => {
+  const { loginSuccess, setError, setLoading } = useAuthStore();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: authApi.login,
+    onMutate: () => {
+      setLoading(true);
+      setError(null);
+    },
+    onSuccess: data => {
+      loginSuccess({
+        user: data.data.user,
+        token: data.data.token,
+        refreshToken: data.data.refreshToken,
+      });
+      queryClient.invalidateQueries({ queryKey: authKeys.all });
+    },
+    onError: (error: any) => {
+      const errorMessage = ErrorHandler.formatErrorForUser(error);
+      setError(errorMessage);
+      setLoading(false);
+      ErrorHandler.logError(error, 'login');
+    },
+  });
+};
+
+export const useRegister = () => {
+  // Similar implementation to useLogin
+};
+
+export const useLogout = () => {
+  const { logout } = useAuthStore();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: authApi.logout,
+    onMutate: () => {
+      logout();
+      queryClient.clear();
+    },
+  });
+};
+
+// Profile management hooks
+export const useProfile = () => {
+  const { isAuthenticated } = useAuthStore();
+
+  return useQuery({
+    queryKey: authKeys.profile(),
+    queryFn: authApi.getProfile,
+    enabled: isAuthenticated,
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    retry: (failureCount, error) => {
+      if (error?.status === 401 || error?.status === 403) {
+        return false;
+      }
+      return failureCount < 3;
+    },
+  });
+};
+
+export const useUpdateProfile = () => {
+  const { updateUser } = useAuthStore();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: authApi.updateProfile,
+    onSuccess: data => {
+      updateUser(data.data);
+      queryClient.invalidateQueries({ queryKey: authKeys.profile() });
+    },
+  });
+};
+
+// Password management hooks
+export const useForgotPassword = () => {
+  return useMutation({
+    mutationFn: authApi.forgotPassword,
+    onError: error => {
+      ErrorHandler.logError(error, 'forgotPassword');
+    },
+  });
+};
+
+export const useResetPassword = () => {
+  return useMutation({
+    mutationFn: authApi.resetPassword,
+    onError: error => {
+      ErrorHandler.logError(error, 'resetPassword');
+    },
+  });
+};
+
+export const useChangePassword = () => {
+  return useMutation({
+    mutationFn: authApi.changePassword,
+    onError: error => {
+      ErrorHandler.logError(error, 'changePassword');
+    },
+  });
 };
 ```
 

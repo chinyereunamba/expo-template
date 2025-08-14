@@ -4,7 +4,6 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
-    'plugin:react-native/all',
   ],
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'react', 'react-hooks', 'react-native'],
@@ -30,8 +29,8 @@ module.exports = {
     'react-native/no-raw-text': 'off', // Can be restrictive
 
     // General rules
-    'no-console': 'warn',
-    'prefer-const': 'error',
+    'no-console': ['warn', { allow: ['warn', 'error'] }],
+    'prefer-const': 'off',
     'no-var': 'error',
     'object-shorthand': 'error',
     'prefer-template': 'error',

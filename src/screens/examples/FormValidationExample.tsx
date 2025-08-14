@@ -14,7 +14,7 @@ import { Button } from '../../components/common/Button';
 import { FormInput, FormValidationStatus } from '../../components/forms';
 import { Screen } from '../../components/common/Screen';
 import { NetworkStatus, ApiErrorHandler } from '../../components/common';
-import { validationSchemas } from '../../utils/validationSchemas';
+// import { validationSchemas } from '../../utils/validationSchemas';
 import { ErrorHandler } from '../../utils/errorHandler';
 import { Ionicons } from '@expo/vector-icons';
 import * as yup from 'yup';
@@ -114,7 +114,7 @@ export const FormValidationExample: React.FC = () => {
     retryDelay: 1000,
     enableAutoRecovery: true,
     enableOfflineQueue: true,
-    onRecoverySuccess: data => {
+    onRecoverySuccess: _data => {
       Alert.alert(
         'Recovery Success',
         'Form was successfully submitted after recovery!'

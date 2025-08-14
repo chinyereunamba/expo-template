@@ -106,7 +106,8 @@ export const ErrorHandler = {
   // Log error for debugging
   logError: (error: ApiError | any, context?: string) => {
     if (__DEV__) {
-      console.error(`Error${context ? ` in ${context}` : ''}:`, error);
+      // Use console.warn instead of console.error to avoid crash reporter loops
+      console.warn(`Error${context ? ` in ${context}` : ''}:`, error);
     }
   },
 
@@ -126,7 +127,8 @@ export const ErrorHandler = {
       error?.status === 'FETCH_ERROR' ||
       error?.name === 'NetworkError' ||
       error?.code === 'NETWORK_ERROR' ||
-      !navigator.onLine
+      error?.message?.includes('Network request failed') ||
+      error?.message?.includes('fetch')
     );
   },
 

@@ -169,7 +169,16 @@ const { isSmall, isMedium, isLarge, getValue } = useResponsive();
 
 ```typescript
 // Comprehensive test helpers available
-import { renderWithProviders, mockAuthState } from '@/utils/test-helpers';
+import {
+  renderWithProviders,
+  mockUser,
+  mockAuthStore,
+  mockAppStore,
+  mockNavigation,
+  createMockApiResponse,
+  fillForm,
+  waitForLoadingToFinish,
+} from '@/utils/test-helpers';
 ```
 
 ## 🚀 Performance Features

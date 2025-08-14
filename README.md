@@ -193,14 +193,21 @@ For detailed configuration information, see [Configuration Guide](docs/CONFIGURA
 ### Documentation
 
 - 📖 [Architecture Guide](docs/ARCHITECTURE.md) - System architecture and design patterns
+- 🏪 [Store Documentation](docs/STORE.md) - Zustand state management architecture and patterns
 - 🧩 [Components Documentation](docs/COMPONENTS.md) - Complete component library reference
 - 🛠️ [Development Tools](docs/DEVELOPMENT_TOOLS.md) - Debugging and development utilities
+- 🧪 [Testing Guide](docs/TESTING.md) - Comprehensive testing setup and utilities
+- 🧪 [Test Server](docs/TEST_SERVER.md) - Mock API server for testing integrations
 - 🌐 [Services & API](docs/SERVICES_API.md) - API integration and services layer
 - 🔧 [Utils & Hooks](docs/UTILS_HOOKS.md) - Utility functions and custom hooks
+- 📝 [Types Documentation](docs/TYPES.md) - TypeScript type system and definitions
+- 🎨 [Assets Guide](docs/ASSETS.md) - Asset management and optimization
+- 📜 [Scripts Guide](docs/SCRIPTS.md) - Build scripts and automation utilities
 - ⚙️ [Configuration Guide](docs/CONFIGURATION.md) - Environment and build configuration
 - 🚀 [Build & Deployment](docs/BUILD_AND_DEPLOYMENT.md) - Build and deployment processes
 - 🔄 [Migration Summary](docs/MIGRATION_SUMMARY.md) - Redux to Zustand migration details
 - ✅ [Final Integration](docs/FINAL_INTEGRATION.md) - Integration completion status
+- 📝 [Recent Updates](docs/RECENT_UPDATES.md) - Latest improvements and changes (v1.2.2 - TypeScript Strict Mode Compliance)
 
 ## Code Quality
 

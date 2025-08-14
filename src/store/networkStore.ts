@@ -24,7 +24,7 @@ const initialState: NetworkStatus = {
 
 export const useNetworkStore = create<NetworkStore>()(
   devtools(
-    (set, get) => ({
+    (set, _get) => ({
       ...initialState,
       retryCount: 0,
       networkType: null,

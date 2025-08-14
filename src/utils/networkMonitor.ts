@@ -85,8 +85,8 @@ class NetworkMonitor {
         status,
         {
           responseTime: completedRequest.responseTime,
-          responseData: responseData,
-          error: error,
+          responseData,
+          error,
         }
       );
     }

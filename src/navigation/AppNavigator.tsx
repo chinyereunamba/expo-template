@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { useAuthStore } from '../store';
 import { RootStackParamList } from '../types';
 import { createLazyScreen } from '../utils/lazyLoading';
+import { LoadingScreen } from '../screens/LoadingScreen';
 
 const AuthNavigator = createLazyScreen(() =>
   import('./AuthNavigator').then(m => ({ default: m.AuthNavigator }))
@@ -11,7 +12,6 @@ const AuthNavigator = createLazyScreen(() =>
 const MainNavigator = createLazyScreen(() =>
   import('./MainNavigator').then(m => ({ default: m.MainNavigator }))
 );
-import { LoadingScreen } from '../screens/LoadingScreen';
 
 const Stack = createStackNavigator<RootStackParamList>();
 

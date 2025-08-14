@@ -58,7 +58,7 @@ class MockApiServer {
   }
 
   // Simulate network delay
-  async delay(ms?: number): Promise<void> {
+  async simulateDelay(ms?: number): Promise<void> {
     const delayTime = ms ?? this.delay;
     if (delayTime > 0) {
       await new Promise(resolve => setTimeout(resolve, delayTime));
@@ -208,7 +208,7 @@ export const setupMockEndpoints = () => {
   });
 
   // Password endpoints
-  mockApiServer.on('POST', '/auth/forgot-password', (data: any) => {
+  mockApiServer.on('POST', '/auth/forgot-password', (_data: any) => {
     return mockApiServer.mockSuccess({
       message: 'Password reset email sent',
     });

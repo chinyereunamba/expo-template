@@ -386,14 +386,14 @@ export class ListPerformanceMonitor {
     this.scrollMetrics.set(listId, existing);
   }
 
-  static getPerformanceReport(): Array<{
+  static getPerformanceReport(): {
     listId: string;
     metrics: {
       scrollEvents: number;
       averageScrollSpeed: number;
       maxScrollSpeed: number;
     };
-  }> {
+  }[] {
     return Array.from(this.scrollMetrics.entries()).map(
       ([listId, metrics]) => ({
         listId,

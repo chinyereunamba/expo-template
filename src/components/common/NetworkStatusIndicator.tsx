@@ -1,8 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, Animated } from 'react-native';
+import { Text, StyleSheet, Animated } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNetworkStore } from '../../store';
-import { useTheme } from '../../hooks/useTheme';
 
 interface NetworkStatusIndicatorProps {
   showWhenOnline?: boolean;
@@ -14,7 +13,6 @@ export const NetworkStatusIndicator: React.FC<NetworkStatusIndicatorProps> = ({
   style,
 }) => {
   const { isConnected, isInternetReachable } = useNetworkStore();
-  const { theme } = useTheme();
   const [fadeAnim] = React.useState(new Animated.Value(0));
 
   const isOffline = !isConnected || isInternetReachable === false;

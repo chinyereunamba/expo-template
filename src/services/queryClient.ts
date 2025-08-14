@@ -1,4 +1,4 @@
-import { QueryClient, QueryCache, MutationCache } from '@tanstack/react-query';
+import { QueryClient } from '@tanstack/react-query';
 import { useNetworkStore } from '../store';
 import { ErrorHandler } from '../utils/errorHandler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -17,91 +17,51 @@ const asyncStoragePersister = createAsyncStoragePersister({
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      // Stale time - how long data is considered fresh
       staleTime: 5 * 60 * 1000, // 5 minutes
-
-      // Cache time - how long data stays in cache after becoming unused
-      gcTime: 10 * 60 * 1000, // 10 minutes (formerly cacheTime)
-
-      // Retry configuration
+      gcTime: 10 * 60 * 1000, // 10 minutes
       retry: (failureCount, error: any) => {
-        // Don't retry on client errors (4xx)
         if (error?.status >= 400 && error?.status < 500) {
           return false;
         }
-
-        // Retry up to 3 times for server errors and network errors
         return failureCount < 3;
       },
-
-      // Retry delay with exponential backoff
       retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 30000),
-
-      // Refetch on window focus
       refetchOnWindowFocus: false,
-
-      // Refetch on reconnect
       refetchOnReconnect: true,
-
-      // Network mode for offline support
       networkMode: 'offlineFirst',
+      onError: (error: any, query) => {
+        ErrorHandler.logError(error, `Query ${query.queryKey.join('-')}`);
+        if (ErrorHandler.isRetryableError(error)) {
+          useNetworkStore.getState().incrementRetryCount();
+        }
+      },
+      onSuccess: () => {
+        useNetworkStore.getState().resetRetryCount();
+      },
     },
     mutations: {
-      // Retry mutations on network errors
       retry: (failureCount, error: any) => {
-        // Don't retry client errors
         if (error?.status >= 400 && error?.status < 500) {
           return false;
         }
-
-        // Check if we're online before retrying
         const networkState = useNetworkStore.getState();
         if (!networkState.isConnected) {
           return false;
         }
-
         return failureCount < 2;
       },
-
-      // Network mode for offline support
       networkMode: 'offlineFirst',
+      onError: (error: any, variables, context, mutation) => {
+        ErrorHandler.logError(
+          error,
+          `Mutation ${mutation.options.mutationKey?.join('-') || 'unknown'}`
+        );
+      },
+      onSuccess: () => {
+        useNetworkStore.getState().resetRetryCount();
+      },
     },
   },
-
-  // Global query cache configuration
-  queryCache: new QueryCache({
-    onError: (error: any, query) => {
-      // Log errors for debugging
-      ErrorHandler.logError(error, `Query ${query.queryKey.join('-')}`);
-
-      // Handle network errors
-      if (ErrorHandler.isRetryableError(error)) {
-        const networkActions = useNetworkStore.getState();
-        networkActions.incrementRetryCount();
-      }
-    },
-    onSuccess: (data, query) => {
-      // Reset retry count on successful query
-      const networkActions = useNetworkStore.getState();
-      networkActions.resetRetryCount();
-    },
-  }),
-
-  // Global mutation cache configuration
-  mutationCache: new MutationCache({
-    onError: (error: any, variables, context, mutation) => {
-      // Log mutation errors
-      ErrorHandler.logError(
-        error,
-        `Mutation ${mutation.options.mutationKey?.join('-') || 'unknown'}`
-      );
-    },
-    onSuccess: (data, variables, context, mutation) => {
-      // Reset retry count on successful mutation
-      const networkActions = useNetworkStore.getState();
-      networkActions.resetRetryCount();
-    },
-  }),
 });
 
 // Initialize offline persistence
@@ -111,13 +71,12 @@ export const initializeQueryPersistence = async () => {
       queryClient,
       persister: asyncStoragePersister,
       maxAge: 24 * 60 * 60 * 1000, // 24 hours
-      buster: '1.0.0', // Change this to invalidate cache on app updates
+      buster: '1.0.0',
       dehydrateOptions: {
         shouldDehydrateQuery: query => {
-          // Only persist successful queries
           return query.state.status === 'success';
         },
-        shouldDehydrateMutation: () => false, // Don't persist mutations
+        shouldDehydrateMutation: () => false,
       },
     });
   } catch (error) {
@@ -127,19 +86,15 @@ export const initializeQueryPersistence = async () => {
 
 // Network status integration
 export const setupNetworkStatusIntegration = () => {
-  // Subscribe to network changes
   const unsubscribe = useNetworkStore.subscribe(
     state => state.isConnected,
     (isConnected, previousIsConnected) => {
-      // When coming back online, refetch all queries
       if (isConnected && !previousIsConnected) {
         queryClient.refetchQueries({
           type: 'active',
           stale: true,
         });
       }
-
-      // When going offline, pause queries
       if (!isConnected && previousIsConnected) {
         queryClient
           .getQueryCache()
@@ -150,55 +105,38 @@ export const setupNetworkStatusIntegration = () => {
       }
     }
   );
-
   return unsubscribe;
 };
 
 // Utility functions for cache management
 export const cacheUtils = {
-  // Clear all cached data
   clearAll: () => {
     queryClient.clear();
   },
-
-  // Clear specific query
   clearQuery: (queryKey: any[]) => {
     queryClient.removeQueries({ queryKey });
   },
-
-  // Invalidate and refetch queries
   invalidateQueries: (queryKey: any[]) => {
     queryClient.invalidateQueries({ queryKey });
   },
-
-  // Prefetch query
   prefetchQuery: (queryKey: any[], queryFn: () => Promise<any>) => {
     return queryClient.prefetchQuery({
       queryKey,
       queryFn,
     });
   },
-
-  // Set query data manually
   setQueryData: (queryKey: any[], data: any) => {
     queryClient.setQueryData(queryKey, data);
   },
-
-  // Get cached query data
   getQueryData: (queryKey: any[]) => {
     return queryClient.getQueryData(queryKey);
   },
-
-  // Check if query exists in cache
   hasQuery: (queryKey: any[]) => {
     return queryClient.getQueryCache().find({ queryKey }) !== undefined;
   },
-
-  // Get cache stats
   getCacheStats: () => {
     const cache = queryClient.getQueryCache();
     const queries = cache.getAll();
-
     return {
       totalQueries: queries.length,
       successfulQueries: queries.filter(q => q.state.status === 'success')

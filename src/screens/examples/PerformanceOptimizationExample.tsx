@@ -1,12 +1,5 @@
 import React, { useState, useCallback, useMemo } from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  Alert,
-} from 'react-native';
+import { View, Text, ScrollView, StyleSheet, Alert } from 'react-native';
 import { useTheme } from '../../hooks/useTheme';
 import { usePerformanceOptimization } from '../../hooks/usePerformanceOptimization';
 import { Screen } from '../../components/common/Screen';
@@ -311,22 +304,9 @@ export const PerformanceOptimizationExample: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  button: {
     flex: 1,
-  },
-  scrollView: {
-    flex: 1,
-    padding: 16,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 8,
-  },
-  description: {
-    fontSize: 16,
-    lineHeight: 24,
-    marginBottom: 24,
+    minWidth: 100,
   },
   buttonContainer: {
     flexDirection: 'row',
@@ -334,59 +314,26 @@ const styles = StyleSheet.create({
     gap: 12,
     marginBottom: 24,
   },
-  button: {
+  container: {
     flex: 1,
-    minWidth: 100,
   },
-  metricsCard: {
-    marginBottom: 24,
-    padding: 16,
-  },
-  metricsTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 16,
-  },
-  metricsSection: {
-    marginBottom: 16,
-  },
-  sectionTitle: {
+  description: {
     fontSize: 16,
-    fontWeight: '600',
-    marginBottom: 8,
-  },
-  metricText: {
-    fontSize: 14,
-    marginBottom: 4,
-  },
-  recommendationText: {
-    fontSize: 14,
-    marginBottom: 4,
-    fontStyle: 'italic',
-  },
-  section: {
+    lineHeight: 24,
     marginBottom: 24,
-    padding: 16,
   },
-  sectionDescription: {
+  gridImage: {
+    marginBottom: 12,
+  },
+  imageGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 12,
+    justifyContent: 'space-between',
+  },
+  itemDescription: {
     fontSize: 14,
     lineHeight: 20,
-    marginBottom: 16,
-  },
-  listContainer: {
-    height: 400,
-    marginTop: 16,
-  },
-  list: {
-    flex: 1,
-  },
-  listItem: {
-    marginBottom: 8,
-    padding: 12,
-  },
-  listItemContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
   },
   itemImage: {
     marginRight: 12,
@@ -399,17 +346,63 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     marginBottom: 4,
   },
-  itemDescription: {
+  list: {
+    flex: 1,
+  },
+  listContainer: {
+    height: 400,
+    marginTop: 16,
+  },
+  listItem: {
+    marginBottom: 8,
+    padding: 12,
+  },
+  listItemContent: {
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  metricText: {
+    fontSize: 14,
+    marginBottom: 4,
+  },
+  metricsCard: {
+    marginBottom: 24,
+    padding: 16,
+  },
+  metricsSection: {
+    marginBottom: 16,
+  },
+  metricsTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 16,
+  },
+  recommendationText: {
+    fontSize: 14,
+    fontStyle: 'italic',
+    marginBottom: 4,
+  },
+  scrollView: {
+    flex: 1,
+    padding: 16,
+  },
+  section: {
+    marginBottom: 24,
+    padding: 16,
+  },
+  sectionDescription: {
     fontSize: 14,
     lineHeight: 20,
+    marginBottom: 16,
   },
-  imageGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 12,
-    justifyContent: 'space-between',
+  sectionTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 8,
   },
-  gridImage: {
-    marginBottom: 12,
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 8,
   },
 });

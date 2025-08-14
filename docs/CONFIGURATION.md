@@ -239,6 +239,106 @@ If migrating from static `app.json` to dynamic `app.config.js`:
 4. Update documentation
 5. Test configuration validation
 
+## TypeScript Configuration
+
+### Strict Mode Settings
+
+The project uses TypeScript with strict mode enabled for enhanced type safety:
+
+```json
+{
+  "compilerOptions": {
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "allowUnusedLabels": false,
+    "allowUnreachableCode": false
+  }
+}
+```
+
+### Key TypeScript Features
+
+#### Exact Optional Properties
+
+With `exactOptionalPropertyTypes: true`, optional properties must be explicitly handled:
+
+```typescript
+// ❌ Incorrect - may cause type errors
+interface Config {
+  apiUrl?: string;
+  debugMode?: boolean;
+}
+
+const config: Config = {
+  apiUrl: someValue || undefined, // ❌ Type error with exact optional properties
+  debugMode: true,
+};
+
+// ✅ Correct - explicit undefined handling
+const config: Config = {
+  apiUrl: someValue || undefined, // ✅ Explicit undefined for optional property
+  debugMode: true,
+};
+```
+
+#### Strict Null Checks
+
+All variables must be properly typed and null-checked:
+
+```typescript
+// ❌ Incorrect
+function processConfig(config: Config | null) {
+  return config.apiUrl; // ❌ Possible null reference
+}
+
+// ✅ Correct
+function processConfig(config: Config | null) {
+  return config?.apiUrl || undefined; // ✅ Safe null checking
+}
+```
+
+#### Path Aliases
+
+Configured path aliases for clean imports:
+
+```typescript
+// Available path aliases
+import { Component } from '@/components/Component';
+import { useAuth } from '@/hooks/useAuth';
+import { authStore } from '@/store/authStore';
+import { apiClient } from '@/services/apiClient';
+import { Theme } from '@/types/theme';
+```
+
+### TypeScript Best Practices
+
+#### Type Safety
+
+- Use strict TypeScript settings for better error detection
+- Implement proper null checking and optional property handling
+- Avoid `any` types - use proper type definitions
+- Use type guards for runtime type checking
+
+#### Interface Design
+
+- Design interfaces with exact optional properties in mind
+- Use union types for better type safety
+- Implement proper generic constraints
+- Document complex type relationships
+
+#### Error Handling
+
+- Use typed error objects for better error handling
+- Implement proper error boundaries with TypeScript
+- Use discriminated unions for error states
+- Provide type-safe error recovery mechanisms
+
 ## Best Practices
 
 ### Configuration Management
@@ -247,6 +347,7 @@ If migrating from static `app.json` to dynamic `app.config.js`:
 - Group related variables together
 - Document all variables in `.env.example`
 - Validate configuration in CI/CD
+- Implement TypeScript-first configuration with proper typing
 
 ### Environment Separation
 
@@ -254,6 +355,7 @@ If migrating from static `app.json` to dynamic `app.config.js`:
 - Separate analytics and monitoring configurations
 - Use environment-specific app icons/names
 - Test configuration changes thoroughly
+- Maintain type safety across all environments
 
 ### Security
 
@@ -261,3 +363,12 @@ If migrating from static `app.json` to dynamic `app.config.js`:
 - Use secure storage for sensitive runtime data
 - Implement proper error handling for missing config
 - Regular security audits of configuration
+- Use TypeScript for compile-time security validation
+
+### TypeScript Integration
+
+- Maintain strict TypeScript compliance across all environments
+- Use proper type definitions for configuration objects
+- Implement type-safe environment variable handling
+- Regular TypeScript compiler checks in CI/CD
+- Document TypeScript-specific configuration requirements

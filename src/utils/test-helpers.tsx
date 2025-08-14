@@ -105,12 +105,12 @@ export const renderWithProviders = (
     theme = 'light',
     withNavigation = false,
     withQueryClient = false,
-    initialEntries = ['/'],
+    initialEntries: _initialEntries = ['/'],
     ...renderOptions
   } = options;
 
   const selectedTheme = theme === 'light' ? lightTheme : darkTheme;
-  
+
   // Create a new QueryClient for each test to avoid state leakage
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -125,9 +125,7 @@ export const renderWithProviders = (
 
   const AllTheProviders = ({ children }: { children: React.ReactNode }) => {
     let wrappedChildren = (
-      <ThemeProvider theme={selectedTheme}>
-        {children}
-      </ThemeProvider>
+      <ThemeProvider theme={selectedTheme}>{children}</ThemeProvider>
     );
 
     if (withQueryClient) {
@@ -140,9 +138,7 @@ export const renderWithProviders = (
 
     if (withNavigation) {
       wrappedChildren = (
-        <NavigationContainer>
-          {wrappedChildren}
-        </NavigationContainer>
+        <NavigationContainer>{wrappedChildren}</NavigationContainer>
       );
     }
 
@@ -174,11 +170,13 @@ export const mockRoute = {
 };
 
 // API Mock helpers
-export const createMockApiResponse = <T>(data: T, success = true) => ({
-  data,
-  success,
-  message: success ? 'Success' : 'Error',
-});
+export function createMockApiResponse<T>(data: T, success = true) {
+  return {
+    data,
+    success,
+    message: success ? 'Success' : 'Error',
+  };
+}
 
 export const createMockApiError = (message = 'API Error', status = 500) => ({
   response: {
@@ -191,7 +189,10 @@ export const createMockApiError = (message = 'API Error', status = 500) => ({
 });
 
 // Form testing helpers
-export const fillForm = async (getByPlaceholderText: any, formData: Record<string, string>) => {
+export const fillForm = async (
+  getByPlaceholderText: any,
+  formData: Record<string, string>
+) => {
   for (const [field, value] of Object.entries(formData)) {
     const input = getByPlaceholderText(field);
     // Use fireEvent.changeText for React Native inputs
@@ -203,9 +204,12 @@ export const fillForm = async (getByPlaceholderText: any, formData: Record<strin
 // Wait for async operations
 export const waitForLoadingToFinish = async () => {
   const { waitFor } = await import('@testing-library/react-native');
-  await waitFor(() => {
-    // Wait for any loading states to complete
-  }, { timeout: 3000 });
+  await waitFor(
+    () => {
+      // Wait for any loading states to complete
+    },
+    { timeout: 3000 }
+  );
 };
 
 // Store mock helpers

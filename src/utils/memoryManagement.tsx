@@ -304,12 +304,12 @@ export function useSafeInterval(
  * Memory usage monitor
  */
 export class MemoryUsageMonitor {
-  private static measurements: Array<{
+  private static measurements: {
     timestamp: number;
     usedJSHeapSize?: number;
     totalJSHeapSize?: number;
     jsHeapSizeLimit?: number;
-  }> = [];
+  }[] = [];
 
   private static maxMeasurements = 100;
 

@@ -68,12 +68,23 @@ The app uses Zustand for state management, providing a lightweight and type-safe
 
 ```typescript
 // Auth Store
-interface AuthStore {
+interface AuthStore extends AuthState {
   user: User | null;
+  token: string | null;
+  refreshToken: string | null;
   isAuthenticated: boolean;
-  login: (credentials: LoginCredentials) => Promise<void>;
+  isLoading: boolean;
+  error: string | null;
+  lastLoginAt: string | null;
+  setLoading: (loading: boolean) => void;
+  setError: (error: string | null) => void;
+  loginSuccess: (payload: LoginPayload) => void;
+  updateUser: (payload: UpdateUserPayload) => void;
+  updateTokens: (tokens: { token: string; refreshToken: string }) => void;
   logout: () => void;
-  refreshToken: () => Promise<void>;
+  clearError: () => void;
+  isTokenExpired: () => boolean;
+  hydrate: () => Promise<void>;
 }
 
 // App Store
@@ -96,9 +107,10 @@ interface NetworkStore {
 #### Store Features
 
 - **Persistence**: Automatic state persistence with AsyncStorage
-- **Type Safety**: Full TypeScript support
-- **DevTools**: Development debugging integration
+- **Type Safety**: Full TypeScript support with strict Zustand API compliance
+- **DevTools**: Development debugging integration with proper action naming
 - **Middleware**: Custom middleware for logging and monitoring
+- **Token Management**: Automatic token validation and expiration handling
 
 ### State Flow
 
@@ -260,33 +272,100 @@ export type HomeStackParamList = {
 
 ### Service Layer
 
-The app uses a service layer pattern for API integration:
+The app uses a service layer pattern for API integration with React Query hooks:
 
 ```typescript
 // API Client
-class ApiClient {
-  private baseURL: string;
-  private token: string | null = null;
+export const apiClient = {
+  async get<T>(endpoint: string): Promise<ApiClientResponse<T>> {
+    // GET request implementation
+  },
 
-  async request<T>(endpoint: string, options?: RequestOptions): Promise<T> {
-    // Request implementation with error handling
-  }
+  async post<T>(endpoint: string, data?: any): Promise<ApiClientResponse<T>> {
+    // POST request implementation
+  },
 
-  setAuthToken(token: string) {
-    this.token = token;
-  }
-}
+  async put<T>(endpoint: string, data?: any): Promise<ApiClientResponse<T>> {
+    // PUT request implementation
+  },
 
-// Auth Service
-export const authService = {
-  login: (credentials: LoginCredentials) =>
-    apiClient.request('/auth/login', { method: 'POST', body: credentials }),
+  async delete<T>(endpoint: string): Promise<ApiClientResponse<T>> {
+    // DELETE request implementation
+  },
+};
 
-  refreshToken: (refreshToken: string) =>
-    apiClient.request('/auth/refresh', {
-      method: 'POST',
-      body: { refreshToken },
-    }),
+// Auth Service with React Query integration
+export const authApi = {
+  login: async (
+    credentials: LoginRequest
+  ): Promise<ApiResponse<AuthResponse>> => {
+    const response = await apiClient.post<ApiResponse<AuthResponse>>(
+      '/auth/login',
+      credentials
+    );
+    return response.data;
+  },
+
+  register: async (
+    userData: RegisterRequest
+  ): Promise<ApiResponse<AuthResponse>> => {
+    const response = await apiClient.post<ApiResponse<AuthResponse>>(
+      '/auth/register',
+      userData
+    );
+    return response.data;
+  },
+
+  refreshToken: async (): Promise<
+    ApiResponse<{ token: string; refreshToken: string }>
+  > => {
+    const response =
+      await apiClient.post<
+        ApiResponse<{ token: string; refreshToken: string }>
+      >('/auth/refresh');
+    return response.data;
+  },
+
+  forgotPassword: async (email: string): Promise<ApiResponse<void>> => {
+    const response = await apiClient.post<ApiResponse<void>>(
+      '/auth/forgot-password',
+      { email }
+    );
+    return response.data;
+  },
+
+  resetPassword: async (resetData: {
+    token: string;
+    password: string;
+  }): Promise<ApiResponse<void>> => {
+    const response = await apiClient.post<ApiResponse<void>>(
+      '/auth/reset-password',
+      resetData
+    );
+    return response.data;
+  },
+};
+
+// React Query Hooks
+export const useLogin = () => {
+  const { loginSuccess, setError } = useAuthStore();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: authApi.login,
+    onSuccess: data => {
+      loginSuccess({
+        user: data.data.user,
+        token: data.data.token,
+        refreshToken: data.data.refreshToken,
+      });
+      queryClient.invalidateQueries({ queryKey: ['auth'] });
+    },
+    onError: error => {
+      const errorMessage = ErrorHandler.formatErrorForUser(error);
+      setError(errorMessage);
+    },
+  });
 };
 ```
 

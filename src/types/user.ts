@@ -8,11 +8,11 @@ export interface User {
   avatar?: string;
   phone?: string;
   dateOfBirth?: string;
-  isEmailVerified: boolean;
-  isPhoneVerified: boolean;
-  preferences: UserPreferences;
-  createdAt: string;
-  updatedAt: string;
+  isEmailVerified?: boolean;
+  isPhoneVerified?: boolean;
+  preferences?: UserPreferences;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface UserPreferences {

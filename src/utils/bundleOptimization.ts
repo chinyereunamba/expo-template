@@ -107,13 +107,13 @@ export class BundleAnalyzer {
     this.moduleSizes.set(moduleId, size);
   }
 
-  static getLoadTimeReport(): Array<{ module: string; loadTime: number }> {
+  static getLoadTimeReport(): { module: string; loadTime: number }[] {
     return Array.from(this.moduleLoadTimes.entries())
       .map(([module, loadTime]) => ({ module, loadTime }))
       .sort((a, b) => b.loadTime - a.loadTime);
   }
 
-  static getSizeReport(): Array<{ module: string; size: number }> {
+  static getSizeReport(): { module: string; size: number }[] {
     return Array.from(this.moduleSizes.entries())
       .map(([module, size]) => ({ module, size }))
       .sort((a, b) => b.size - a.size);
@@ -168,11 +168,11 @@ export type ChunkPriorityType =
  * Intelligent chunk loader with priority-based loading
  */
 export class ChunkLoader {
-  private static loadQueue: Array<{
+  private static loadQueue: {
     id: string;
     priority: ChunkPriorityType;
     loader: () => Promise<any>;
-  }> = [];
+  }[] = [];
 
   private static isLoading = false;
   private static maxConcurrentLoads = 3;

@@ -39,8 +39,7 @@ export const useAuthStore = create<AuthStore>()(
               isLoading: loading,
               error: loading ? null : state.error,
             }),
-            false,
-            'setLoading'
+            false
           ),
 
         setError: (error: string | null) =>
@@ -49,8 +48,7 @@ export const useAuthStore = create<AuthStore>()(
               error,
               isLoading: false,
             },
-            false,
-            'setError'
+            false
           ),
 
         loginSuccess: (payload: LoginPayload) => {
@@ -65,8 +63,7 @@ export const useAuthStore = create<AuthStore>()(
               error: null,
               lastLoginAt: new Date().toISOString(),
             },
-            false,
-            'loginSuccess'
+            false
           );
         },
 
@@ -75,8 +72,7 @@ export const useAuthStore = create<AuthStore>()(
             state => ({
               user: state.user ? { ...state.user, ...payload } : null,
             }),
-            false,
-            'updateUser'
+            false
           ),
 
         updateTokens: (tokens: { token: string; refreshToken: string }) =>
@@ -85,8 +81,7 @@ export const useAuthStore = create<AuthStore>()(
               token: tokens.token,
               refreshToken: tokens.refreshToken,
             },
-            false,
-            'updateTokens'
+            false
           ),
 
         logout: () => {
@@ -94,8 +89,7 @@ export const useAuthStore = create<AuthStore>()(
             {
               ...initialState,
             },
-            false,
-            'logout'
+            false
           );
         },
 
@@ -104,8 +98,7 @@ export const useAuthStore = create<AuthStore>()(
             {
               error: null,
             },
-            false,
-            'clearError'
+            false
           ),
 
         isTokenExpired: () => {

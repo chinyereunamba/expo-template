@@ -6,6 +6,12 @@ import { useTheme } from '../hooks/useTheme';
 // Import tab navigators with lazy loading
 import { createLazyScreen } from '../utils/lazyLoading';
 
+// Import icons (using a simple icon component for now)
+import { TabBarIcon } from '../components/common/TabBarIcon';
+
+// Import debug screen (development only)
+import { APP_CONFIG } from '../config/environment';
+
 const HomeNavigator = createLazyScreen(() =>
   import('./HomeNavigator').then(m => ({ default: m.HomeNavigator }))
 );
@@ -20,12 +26,6 @@ const NotificationsScreen = createLazyScreen(() =>
     default: m.NotificationsScreen,
   }))
 );
-
-// Import icons (using a simple icon component for now)
-import { TabBarIcon } from '../components/common/TabBarIcon';
-
-// Import debug screen (development only)
-import { APP_CONFIG } from '../config/environment';
 let DebugScreen: React.ComponentType | null = null;
 if (APP_CONFIG.DEBUG) {
   DebugScreen = require('../screens/debug').DebugScreen;
