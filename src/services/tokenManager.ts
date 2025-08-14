@@ -1,5 +1,5 @@
 import { useAuthStore } from '../store/authStore';
-import { APP_CONFIG } from '../constants';
+import { config } from '@/config/environment';
 import { ApiResponse } from '../types';
 
 class TokenManager {
@@ -67,13 +67,16 @@ class TokenManager {
         return false;
       }
 
-      const response = await fetch(`${APP_CONFIG.API_BASE_URL}/auth/refresh`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${refreshToken}`,
-        },
-      });
+      const response = await fetch(
+        `${APP_CONFIG.API_URL || 'https://api.example.com'}/auth/refresh`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${refreshToken}`,
+          },
+        }
+      );
 
       if (response.ok) {
         const data: ApiResponse<{ token: string; refreshToken: string }> =

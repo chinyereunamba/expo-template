@@ -1,7 +1,7 @@
 module.exports = {
   extends: [
     'expo',
-    'plugin:@typescript-eslint/recommended',
+    '@typescript-eslint/recommended',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
   ],
@@ -14,6 +14,8 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'warn',
     '@typescript-eslint/prefer-const': 'error',
+    '@typescript-eslint/no-empty-object-type': 'error',
+    '@typescript-eslint/no-wrapper-object-types': 'error',
 
     // React specific rules
     'react/react-in-jsx-scope': 'off', // Not needed in React 17+
@@ -30,7 +32,7 @@ module.exports = {
 
     // General rules
     'no-console': ['warn', { allow: ['warn', 'error'] }],
-    'prefer-const': 'off',
+    'prefer-const': 'error',
     'no-var': 'error',
     'object-shorthand': 'error',
     'prefer-template': 'error',

@@ -4,20 +4,19 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  Alert,
   ScrollView,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { AuthStackNavigationProp } from '../../types';
-import { useTheme } from '../../hooks/useTheme';
-import { useEnhancedFormValidation } from '../../hooks/useEnhancedFormValidation';
-import { Button } from '../../components/common/Button';
-import { FormInput } from '../../components/forms';
-import { Screen } from '../../components/common/Screen';
-import { NetworkStatus, ApiErrorHandler } from '../../components/common';
-import { useRegister } from '../../services/authApi';
-import { authSchemas } from '../../utils/validationSchemas';
-import { ErrorHandler } from '../../utils/errorHandler';
+import { AuthStackNavigationProp } from '@/types';
+import { useTheme } from '@/hooks/useTheme';
+import { useEnhancedFormValidation } from '@/hooks/useEnhancedFormValidation';
+import { Button } from '@/components/common/Button';
+import { FormInput } from '@/components/forms';
+import { Screen } from '@/components/common/Screen';
+import { NetworkStatus, ApiErrorHandler } from '@/components/common';
+import { useRegister } from '@/services/authApi';
+import { authSchemas } from '@/utils/validationSchemas';
+import { ErrorHandler } from '@/utils/errorHandler';
 import { Ionicons } from '@expo/vector-icons';
 
 interface RegisterFormData {
@@ -48,7 +47,6 @@ export const RegisterScreen: React.FC = () => {
     showNetworkErrors: true,
     retryAttempts: 2,
     onError: error => {
-      const errorMessage = ErrorHandler.getContextualError(error, 'register');
       console.error('Registration error:', error);
     },
     onSuccess: data => {

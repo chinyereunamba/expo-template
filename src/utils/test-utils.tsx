@@ -120,7 +120,7 @@ export const testThemeVariations = (
 // Utility to test error states
 export const testErrorStates = async (
   component: any,
-  errorTriggers: Array<() => Promise<void> | void>
+  errorTriggers: (() => Promise<void> | void)[]
 ) => {
   const results = [];
 
@@ -186,10 +186,10 @@ export const testLoadingStates = async (
 // Utility to test navigation flows
 export const testNavigationFlow = async (
   component: any,
-  navigationSteps: Array<{
+  navigationSteps: {
     action: () => void;
     expectedScreen: string | RegExp;
-  }>
+  }[]
 ) => {
   const results = [];
 
@@ -283,11 +283,11 @@ export const createMockTimers = () => {
 // Utility to test component props
 export const testComponentProps = (
   Component: React.ComponentType<any>,
-  propTests: Array<{
+  propTests: {
     props: any;
     expectedBehavior: string;
     test: (component: any) => boolean;
-  }>
+  }[]
 ) => {
   const { render } = require('@testing-library/react-native');
   

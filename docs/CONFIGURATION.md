@@ -241,6 +241,20 @@ If migrating from static `app.json` to dynamic `app.config.js`:
 
 ## TypeScript Configuration
 
+### Version Requirements
+
+The project uses TypeScript `~5.4.0` with enhanced type safety features:
+
+```json
+{
+  "devDependencies": {
+    "typescript": "~5.4.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0"
+  }
+}
+```
+
 ### Strict Mode Settings
 
 The project uses TypeScript with strict mode enabled for enhanced type safety:

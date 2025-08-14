@@ -38,6 +38,7 @@ export const MainNavigator: React.FC = () => {
 
   return (
     <Tab.Navigator
+      initialRouteName='Home' // Optional: Set Profile as default tab
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarIcon: ({ focused, color, size }) => (
@@ -83,7 +84,7 @@ export const MainNavigator: React.FC = () => {
         component={NotificationsScreen}
         options={{
           tabBarLabel: 'Notifications',
-          tabBarBadge: undefined, // Can be set dynamically based on unread count
+          // tabBarBadge: undefined, // Can be set dynamically based on unread count
         }}
       />
       <Tab.Screen

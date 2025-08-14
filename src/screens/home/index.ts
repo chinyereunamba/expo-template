@@ -1,4 +1,4 @@
-import { createLazyScreen } from '../../utils/lazyLoading';
+import { createLazyScreen } from '@/utils/lazyLoading';
 
 // Home screens - lazy loaded for better performance
 export const HomeScreen = createLazyScreen(() =>

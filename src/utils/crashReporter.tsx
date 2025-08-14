@@ -376,20 +376,10 @@ export const withCrashReporting = <P extends object>(
 ) => {
   const WrappedComponent = React.forwardRef<unknown, P>((props, ref) => {
     React.useEffect(() => {
-      const handleError = (error: Error) => {
-        crashReporter.reportCrash(
-          error,
-          `Component: ${componentName || Component.name}`,
-          {
-            screen: componentName || Component.name,
-            props,
-          }
-        );
-      };
-
       // This is a simplified error boundary - in practice you'd use React Error Boundary
       // Note: We don't override console.error here to avoid conflicts with the global handler
       // The global crash reporter will catch errors automatically
+      // Component-level error reporting is handled by the global crash reporter
     }, [props]);
 
     // Handle ref properly for forwardRef

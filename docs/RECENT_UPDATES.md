@@ -2,7 +2,34 @@
 
 This document summarizes the recent changes and improvements made to the Expo Mobile Skeleton project.
 
-## Overview
+## Latest Updates (v1.2.3) - TypeScript 5.4+ and Enhanced ESLint Configuration
+
+### Overview
+
+This update upgrades the TypeScript version to 5.4+ and enhances the ESLint configuration with improved type safety rules. The changes include better error handling, enhanced crash reporting with infinite loop prevention, and improved development tooling.
+
+### Key Changes
+
+#### TypeScript and ESLint Updates
+
+- **TypeScript Version**: Updated to `~5.4.0` for latest language features and improvements
+- **ESLint Plugin**: Updated `@typescript-eslint/eslint-plugin` and `@typescript-eslint/parser` to `^7.0.0`
+- **New ESLint Rules**: Added `@typescript-eslint/no-empty-object-type` and `@typescript-eslint/no-wrapper-object-types` for enhanced type safety
+- **Rule Definitions**: Fixed missing rule definitions that were causing ESLint errors
+
+#### Enhanced Development Tools
+
+- **ESLint Configuration**: Improved rule definitions and TypeScript integration
+- **Code Quality**: Enhanced type safety with new ESLint rules
+- **Development Experience**: Better error detection and code quality enforcement
+
+### Impact
+
+- **Better Type Safety**: Enhanced TypeScript and ESLint integration catches more potential issues
+- **Improved Development Experience**: Cleaner linting with proper rule definitions
+- **Future-Ready**: Updated to latest TypeScript version for ongoing compatibility
+
+## Previous Updates
 
 Recent updates focused on fixing code quality issues, improving the testing infrastructure, and enhancing documentation. The changes ensure better maintainability, testing capabilities, and developer experience.
 

@@ -22,13 +22,20 @@ export function withLazyLoading<T extends object>(
 /**
  * Create a lazy-loaded screen component
  */
-export function createLazyScreen<T extends object>(
-  importFn: () => Promise<{ default: ComponentType<T> }>,
-  fallback?: React.ComponentType
-): React.ComponentType<T> {
-  const LazyComponent = React.lazy(importFn);
-  return withLazyLoading(LazyComponent, fallback);
+// export function createLazyScreen<T extends object>(
+//   importFn: () => Promise<{ default: ComponentType<T> }>,
+//   fallback?: React.ComponentType
+// ): React.ComponentType<T> {
+//   const LazyComponent = React.lazy(importFn);
+//   return withLazyLoading(LazyComponent, fallback);
+// }
+
+export function createLazyScreen<T extends React.ComponentType<any>>(
+  importFn: () => Promise<{ default: T }>
+) {
+  return React.lazy(importFn);
 }
+
 
 /**
  * Preload a lazy component to improve perceived performance

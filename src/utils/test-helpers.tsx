@@ -124,9 +124,7 @@ export const renderWithProviders = (
   });
 
   const AllTheProviders = ({ children }: { children: React.ReactNode }) => {
-    let wrappedChildren = (
-      <ThemeProvider theme={selectedTheme}>{children}</ThemeProvider>
-    );
+    let wrappedChildren = <ThemeProvider>{children}</ThemeProvider>;
 
     if (withQueryClient) {
       wrappedChildren = (

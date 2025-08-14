@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { AuthStackNavigationProp } from '@/types';
 import { useTheme } from '@/hooks/useTheme';
@@ -10,7 +10,6 @@ import { Screen } from '@/components/common/Screen';
 import { NetworkStatus, ApiErrorHandler } from '@/components/common';
 import { useLogin } from '@/services/authApi';
 import { authSchemas } from '@/utils/validationSchemas';
-import { ErrorHandler } from '@/utils/errorHandler';
 import { Ionicons } from '@expo/vector-icons';
 
 interface LoginFormData {
@@ -36,7 +35,6 @@ export const LoginScreen: React.FC = () => {
     showNetworkErrors: true,
     retryAttempts: 2,
     onError: error => {
-      const errorMessage = ErrorHandler.getContextualError(error, 'login');
       console.error('Login error:', error);
     },
     onSuccess: data => {

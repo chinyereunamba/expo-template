@@ -8,7 +8,7 @@ import type {
 // Root navigation stack
 export type RootStackParamList = {
   Auth: undefined;
-  Main: undefined;
+  Main: undefined | { screen?: keyof MainTabParamList; params?: object };
   Onboarding: undefined;
   Loading: undefined;
 };

@@ -712,9 +712,29 @@ import { DebugScreen } from '@/screens/debug/DebugScreen';
 
 **Location**: `.eslintrc.js`
 
-- **TypeScript Rules**: Strict TypeScript linting
+- **TypeScript Rules**: Strict TypeScript linting with v7.0.0+ plugin support
 - **React Native Rules**: Platform-specific rules
 - **Custom Rules**: Project-specific linting rules
+- **Enhanced Type Safety**: Includes `@typescript-eslint/no-empty-object-type` and `@typescript-eslint/no-wrapper-object-types`
+
+##### Key ESLint Rules
+
+```javascript
+{
+  // TypeScript specific rules
+  '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+  '@typescript-eslint/no-explicit-any': 'warn',
+  '@typescript-eslint/prefer-const': 'error',
+  '@typescript-eslint/no-empty-object-type': 'error',
+  '@typescript-eslint/no-wrapper-object-types': 'error',
+
+  // React Native specific rules
+  'react-native/no-unused-styles': 'error',
+  'react-native/split-platform-components': 'error',
+  'react-native/no-inline-styles': 'warn',
+  'react-native/no-color-literals': 'warn',
+}
+```
 
 #### Prettier Configuration
 

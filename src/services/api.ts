@@ -1,8 +1,8 @@
-import { APP_CONFIG } from '@/constants';
+import { config } from '@/config/environment';
 
 // API configuration
 export const API_CONFIG = {
-  BASE_URL: APP_CONFIG.API_BASE_URL,
+  BASE_URL: config.API_URL,
   TIMEOUT: 10000,
   RETRY_ATTEMPTS: 3,
 };

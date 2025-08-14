@@ -1,14 +1,14 @@
 import { useAuthStore } from '../store';
 import { useNetworkStore } from '../store';
-import { APP_CONFIG } from '../constants';
+import { config } from '@/config/environment';
 // import { ApiResponse, BaseQueryError } from '../types/api';
 // import { ErrorHandler } from '../utils/errorHandler';
 import { tokenManager } from './tokenManager';
 import { monitoredFetch } from '../utils/networkMonitor';
 
 // API Client configuration
-const API_CONFIG = {
-  baseURL: APP_CONFIG.API_BASE_URL,
+const API_CLIENT_CONFIG = {
+  baseURL: config.API_URL,
   timeout: 10000,
   retryAttempts: 3,
   retryDelay: 1000,
@@ -38,10 +38,10 @@ class ApiClient {
   private retryDelay: number;
 
   constructor() {
-    this.baseURL = API_CONFIG.baseURL;
-    this.timeout = API_CONFIG.timeout;
-    this.retryAttempts = API_CONFIG.retryAttempts;
-    this.retryDelay = API_CONFIG.retryDelay;
+    this.baseURL = API_CLIENT_CONFIG.baseURL;
+    this.timeout = API_CLIENT_CONFIG.timeout;
+    this.retryAttempts = API_CLIENT_CONFIG.retryAttempts;
+    this.retryDelay = API_CLIENT_CONFIG.retryDelay;
   }
 
   // Get auth token

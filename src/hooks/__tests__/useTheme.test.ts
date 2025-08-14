@@ -1,7 +1,6 @@
 import { renderHook } from '@testing-library/react-native';
 import React from 'react';
-import { useTheme } from '../useTheme';
-import { ThemeProvider } from '@/theme/ThemeProvider';
+import { useTheme } from '@/theme/ThemeProvider';
 import { lightTheme, darkTheme } from '@/theme/themes';
 
 // Mock the theme context
@@ -13,8 +12,9 @@ const mockThemeContext = {
 };
 
 jest.mock('@/theme/ThemeProvider', () => ({
-  ThemeProvider: ({ children }: { children: React.ReactNode }) => children,
-  useThemeContext: () => mockThemeContext,
+  __esModule: true,
+  ...jest.requireActual('@/theme/ThemeProvider'),
+  useTheme: () => mockThemeContext,
 }));
 
 describe('useTheme Hook', () => {

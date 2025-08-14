@@ -8,7 +8,7 @@ import { ThemeProvider } from '../../theme';
 import { useAuthStore, useAppStore } from '../../store';
 
 // Mock the store hooks
-jest.mock('../../stores', () => ({
+jest.mock('@/store', () => ({
   useAuthStore: jest.fn(),
   useAppStore: jest.fn(),
 }));
